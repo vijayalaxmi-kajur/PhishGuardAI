@@ -1,0 +1,124 @@
+{
+  "experiment_name": "Phase 8: Domain Generalization Analysis",
+  "created_at": "2026-10-28T07:58:29.223368+00:00",
+  "split_metadata": {
+    "random_state": 42,
+    "n_splits": 5,
+    "split_ratio": "80.0% Train / 20.0% Test",
+    "total_clean_samples": 115231,
+    "train_samples": 92186,
+    "test_samples": 23045,
+    "total_unique_domains": 90860,
+    "train_domains_count": 72661,
+    "test_domains_count": 18199,
+    "domain_overlap_count": 0,
+    "train_phishing_count": 13272,
+    "train_phishing_pct": 14.4,
+    "train_legitimate_count": 78914,
+    "train_legitimate_pct": 85.6,
+    "test_phishing_count": 3318,
+    "test_phishing_pct": 14.4,
+    "test_legitimate_count": 19727,
+    "test_legitimate_pct": 85.6,
+    "feature_names": [
+      "url_len",
+      "dom_len",
+      "is_ip",
+      "tld_len",
+      "subdom_cnt",
+      "letter_cnt",
+      "digit_cnt",
+      "special_cnt",
+      "eq_cnt",
+      "qm_cnt",
+      "amp_cnt",
+      "dot_cnt",
+      "dash_cnt",
+      "under_cnt",
+      "letter_ratio",
+      "digit_ratio",
+      "spec_ratio",
+      "is_https",
+      "slash_cnt",
+      "entropy",
+      "path_len",
+      "query_len"
+    ]
+  },
+  "evaluation_metrics": {
+    "accuracy": 0.9677,
+    "phishing_precision": 0.8994,
+    "phishing_recall": 0.8734,
+    "phishing_f1": 0.8862,
+    "macro_f1": 0.9337,
+    "weighted_f1": 0.9675,
+    "confusion_matrix": {
+      "true_negatives": 19403,
+      "false_positives": 324,
+      "false_negatives": 420,
+      "true_positives": 2898
+    },
+    "roc_auc": 0.9826,
+    "pr_auc": 0.9286,
+    "brier_score": 0.0279,
+    "calibration_bins": [
+      {
+        "bin_index": 1,
+        "mean_predicted_prob": 0.0056,
+        "fraction_of_positives": 0.0067
+      },
+      {
+        "bin_index": 2,
+        "mean_predicted_prob": 0.1518,
+        "fraction_of_positives": 0.1223
+      },
+      {
+        "bin_index": 3,
+        "mean_predicted_prob": 0.2489,
+        "fraction_of_positives": 0.1407
+      },
+      {
+        "bin_index": 4,
+        "mean_predicted_prob": 0.3581,
+        "fraction_of_positives": 0.1811
+      },
+      {
+        "bin_index": 5,
+        "mean_predicted_prob": 0.4528,
+        "fraction_of_positives": 0.3896
+      },
+      {
+        "bin_index": 6,
+        "mean_predicted_prob": 0.5529,
+        "fraction_of_positives": 0.5898
+      },
+      {
+        "bin_index": 7,
+        "mean_predicted_prob": 0.6592,
+        "fraction_of_positives": 0.7774
+      },
+      {
+        "bin_index": 8,
+        "mean_predicted_prob": 0.7579,
+        "fraction_of_positives": 0.9084
+      },
+      {
+        "bin_index": 9,
+        "mean_predicted_prob": 0.8549,
+        "fraction_of_positives": 0.9209
+      },
+      {
+        "bin_index": 10,
+        "mean_predicted_prob": 0.9721,
+        "fraction_of_positives": 0.9651
+      }
+    ],
+    "sample_size": 23045,
+    "evaluation_timestamp": "2026-10-28T07:58:29.140762+00:00"
+  },
+  "model_configuration": {
+    "n_estimators": 100,
+    "class_weight": "balanced",
+    "random_state": 42
+  }
+}

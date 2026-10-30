@@ -1,0 +1,197 @@
+{
+  "selected_model": {
+    "id": "cand04_rf_regularized_30f",
+    "name": "Candidate 4: Regularized RF (30f)",
+    "features": 30,
+    "params": {
+      "n_estimators": 100,
+      "class_weight": "balanced",
+      "max_depth": 16,
+      "min_samples_leaf": 4,
+      "features": 30
+    },
+    "selected_validation_threshold": 0.5
+  },
+  "test_split_evaluation": {
+    "tau_0_50": {
+      "total_samples": 4901,
+      "tn": 3704,
+      "fp": 168,
+      "fn": 70,
+      "tp": 959,
+      "accuracy": 0.9514384819424607,
+      "precision": 0.8509316770186336,
+      "recall": 0.9319727891156463,
+      "f1": 0.8896103896103896,
+      "fpr": 0.04338842975206612,
+      "fnr": 0.06802721088435375,
+      "roc_auc": 0.9873437863929515,
+      "pr_auc": 0.9659288525993993,
+      "brier_score": 0.03740527657040939,
+      "slices_by_length": {
+        "[0, 50)": {
+          "total_samples": 4358,
+          "tn": 3409,
+          "fp": 130,
+          "fn": 62,
+          "tp": 757,
+          "accuracy": 0.9559430931620009,
+          "precision": 0.8534385569334837,
+          "recall": 0.9242979242979243,
+          "f1": 0.8874560375146542,
+          "fpr": 0.03673354054817745,
+          "fnr": 0.0757020757020757,
+          "roc_auc": 0.9867915199929893,
+          "pr_auc": 0.9624690044875379,
+          "brier_score": 0.03510878009374638
+        },
+        "[50, 90)": {
+          "total_samples": 423,
+          "tn": 233,
+          "fp": 31,
+          "fn": 7,
+          "tp": 152,
+          "accuracy": 0.9101654846335697,
+          "precision": 0.8306010928961749,
+          "recall": 0.9559748427672956,
+          "f1": 0.8888888888888888,
+          "fpr": 0.11742424242424243,
+          "fnr": 0.0440251572327044,
+          "roc_auc": 0.9854440632742519,
+          "pr_auc": 0.9760286414339157,
+          "brier_score": 0.05714576980211738
+        },
+        "[90, 150)": {
+          "total_samples": 98,
+          "tn": 61,
+          "fp": 7,
+          "fn": 1,
+          "tp": 29,
+          "accuracy": 0.9183673469387755,
+          "precision": 0.8055555555555556,
+          "recall": 0.9666666666666667,
+          "f1": 0.8787878787878788,
+          "fpr": 0.10294117647058823,
+          "fnr": 0.03333333333333333,
+          "roc_auc": 0.9769607843137255,
+          "pr_auc": 0.9437718759278709,
+          "brier_score": 0.06029570678517114
+        },
+        "[150+)": {
+          "total_samples": 22,
+          "tn": 1,
+          "fp": 0,
+          "fn": 0,
+          "tp": 21,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "fpr": 0.0,
+          "fnr": 0.0,
+          "roc_auc": 1.0,
+          "pr_auc": 1.0000000000000002,
+          "brier_score": 0.010798042353967037
+        }
+      },
+      "slices_by_protocol": {
+        "http": {
+          "total_samples": 643,
+          "tn": 460,
+          "fp": 27,
+          "fn": 14,
+          "tp": 142,
+          "accuracy": 0.9362363919129082,
+          "precision": 0.8402366863905325,
+          "recall": 0.9102564102564102,
+          "f1": 0.8738461538461538,
+          "fpr": 0.055441478439425054,
+          "fnr": 0.08974358974358974,
+          "roc_auc": 0.9839809403464433,
+          "pr_auc": 0.9630525465091313,
+          "brier_score": 0.04523795314598532
+        },
+        "https": {
+          "total_samples": 4258,
+          "tn": 3244,
+          "fp": 141,
+          "fn": 56,
+          "tp": 817,
+          "accuracy": 0.9537341474870832,
+          "precision": 0.8528183716075156,
+          "recall": 0.9358533791523482,
+          "f1": 0.892408519934462,
+          "fpr": 0.041654357459379614,
+          "fnr": 0.06414662084765177,
+          "roc_auc": 0.9878156613724385,
+          "pr_auc": 0.9662425170336776,
+          "brier_score": 0.03622246514765332
+        }
+      }
+    },
+    "tau_optimal": {
+      "total_samples": 4901,
+      "tn": 3704,
+      "fp": 168,
+      "fn": 70,
+      "tp": 959,
+      "accuracy": 0.9514384819424607,
+      "precision": 0.8509316770186336,
+      "recall": 0.9319727891156463,
+      "f1": 0.8896103896103896,
+      "fpr": 0.04338842975206612,
+      "fnr": 0.06802721088435375,
+      "roc_auc": 0.9873437863929515,
+      "pr_auc": 0.9659288525993993,
+      "brier_score": 0.03740527657040939
+    }
+  },
+  "benchmark_evaluation": {
+    "verified_subset_N38": {
+      "total_samples": 38,
+      "tn": 5,
+      "fp": 18,
+      "fn": 0,
+      "tp": 15,
+      "accuracy": 0.5263157894736842,
+      "precision": 0.45454545454545453,
+      "recall": 1.0,
+      "f1": 0.625,
+      "fpr": 0.782608695652174,
+      "fnr": 0.0,
+      "roc_auc": 0.8202898550724638,
+      "pr_auc": 0.7755629213781388,
+      "brier_score": 0.3151235565989314
+    },
+    "stress_subset_N3": {
+      "total": 3,
+      "classified_phishing_count": 3,
+      "sample_probabilities": {
+        "https://internal-dev-portal.corp.local/api/v1/auth?token=staging99182": 0.72722687868547,
+        "https://bit.ly/3xY9kL2?ref=social_campaign": 0.9557234848484846,
+        "https://newly-registered-startup2026.app/dashboard?id=8921": 0.9635016005255268
+      }
+    },
+    "combined_benchmark_N41": {
+      "total_samples": 41,
+      "tn": 5,
+      "fp": 21,
+      "fn": 0,
+      "tp": 15,
+      "accuracy": 0.4878048780487805,
+      "precision": 0.4166666666666667,
+      "recall": 1.0,
+      "f1": 0.5882352941176471,
+      "fpr": 0.8076923076923077,
+      "fnr": 0.0,
+      "roc_auc": 0.7846153846153846,
+      "pr_auc": 0.707193141991096,
+      "brier_score": 0.34988528774507777
+    }
+  },
+  "target_user_url_evaluation": {
+    "url": "https://www.youtube.com/watch?v=9l3IBjqJdFI&list=PLOoogDtEDyvvqaKSM-ZkwAqUyjyR402HH&index=4",
+    "phishing_probability": 0.9083220779220779,
+    "classification": "phishing"
+  }
+}

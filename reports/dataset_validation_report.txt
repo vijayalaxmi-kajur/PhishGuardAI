@@ -1,0 +1,79 @@
+================================================================================
+          PHISHGUARDAI — DATASET VALIDATION & INTEGRITY REPORT          
+================================================================================
+Execution Timestamp : 2026-10-28 12:18:32
+Dataset File Target : C:\Users\yalla\OneDrive\Desktop\PhishGuardAI\dataset\Dataset.csv
+File Size           : 14.45 MB
+--------------------------------------------------------------------------------
+Successfully loaded CSV using 'utf-8' encoding.
+
+[1] DATASET DIMENSIONS & SCHEMA:
+  • Total Rows    : 116,600
+  • Total Columns : 26
+  • Column Names & Types:
+      - url                       [Type: str        | Non-Null: 116,600/116,600]
+      - url_len                   [Type: int64      | Non-Null: 116,600/116,600]
+      - dom                       [Type: str        | Non-Null: 116,600/116,600]
+      - dom_len                   [Type: int64      | Non-Null: 116,600/116,600]
+      - is_ip                     [Type: int64      | Non-Null: 116,600/116,600]
+      - tld                       [Type: str        | Non-Null: 116,586/116,600]
+      - tld_len                   [Type: int64      | Non-Null: 116,600/116,600]
+      - subdom_cnt                [Type: int64      | Non-Null: 116,600/116,600]
+      - letter_cnt                [Type: int64      | Non-Null: 116,600/116,600]
+      - digit_cnt                 [Type: int64      | Non-Null: 116,600/116,600]
+      - special_cnt               [Type: int64      | Non-Null: 116,600/116,600]
+      - eq_cnt                    [Type: int64      | Non-Null: 116,600/116,600]
+      - qm_cnt                    [Type: int64      | Non-Null: 116,600/116,600]
+      - amp_cnt                   [Type: int64      | Non-Null: 116,600/116,600]
+      - dot_cnt                   [Type: int64      | Non-Null: 116,600/116,600]
+      - dash_cnt                  [Type: int64      | Non-Null: 116,600/116,600]
+      - under_cnt                 [Type: int64      | Non-Null: 116,600/116,600]
+      - letter_ratio              [Type: float64    | Non-Null: 116,600/116,600]
+      - digit_ratio               [Type: float64    | Non-Null: 116,600/116,600]
+      - spec_ratio                [Type: float64    | Non-Null: 116,600/116,600]
+      - is_https                  [Type: int64      | Non-Null: 116,600/116,600]
+      - slash_cnt                 [Type: int64      | Non-Null: 116,600/116,600]
+      - entropy                   [Type: float64    | Non-Null: 116,600/116,600]
+      - path_len                  [Type: int64      | Non-Null: 116,600/116,600]
+      - query_len                 [Type: int64      | Non-Null: 116,600/116,600]
+      - label                     [Type: int64      | Non-Null: 116,600/116,600]
+
+[2] COLUMN IDENTIFICATION:
+  • Identified URL Column   : 'url'
+  • Identified Label Column : 'label'
+
+[3] SAMPLE RECORDS (First 5 rows):
+  [1] Label: 0               | URL: https://www.rmit.edu.au/
+  [2] Label: 0               | URL: http://www.latrobe.edu.au/
+  [3] Label: 0               | URL: https://www.cqu.edu.au/
+  [4] Label: 0               | URL: http://bond.edu.au/
+  [5] Label: 0               | URL: http://www.csu.edu.au/
+
+[4] MISSING & EMPTY VALUE ANALYSIS:
+  • Null/NaN URLs       : 0 (0.00%)
+  • Empty string URLs   : 0
+  • Null/NaN Labels     : 0 (0.00%)
+  • Empty string Labels : 0
+
+[5] DUPLICATE ANALYSIS:
+  • Exact Duplicate Rows (all columns) : 1,369
+  • Duplicate URL Instances            : 1,369
+  • Distinct / Unique URLs             : 115,231
+  • Conflicting URL Labels (Same URL, Different Labels) : 0
+
+[6] CLASS LABEL DISTRIBUTION & BALANCE:
+  • Class '0' : 100,000 instances (85.76%)
+  • Class '1' : 16,600 instances (14.24%)
+  • Multi-class / Binary status: 2 classes detected.
+  • Dominant Class Imbalance Ratio: 6.02:1
+    [NOTE] Class distribution is imbalanced (>4:1). Resampling or stratified evaluation recommended.
+
+[7] URL INTEGRITY & ANOMALY INSPECTION:
+  • Non-string URL values       : 0
+  • Suspiciously short (<4 char): 0
+
+================================================================================
+                       FINAL VALIDATION VERDICT                         
+================================================================================
+  [STATUS: PASSED] Dataset is healthy, structurally valid, and ready for Phase 3.
+================================================================================

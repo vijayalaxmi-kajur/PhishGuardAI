@@ -1,0 +1,82 @@
+{
+  "raw_dataset": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\dataset\\Dataset.csv",
+    "size": 15149338,
+    "sha256": "d68b3cd0648dcf9c775347416ad1a8995e8a025921fbe3871ca6158d4db3c3a1"
+  },
+  "processed_train": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\processed\\train.csv",
+    "size": 7336041,
+    "sha256": "db6360640510ea2b30b6b8449e06edaca14be4e8784573e3dce21fa3c5ab4294"
+  },
+  "processed_test": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\processed\\test.csv",
+    "size": 1834913,
+    "sha256": "8764066a97ec387126aa40f961d0bd6fdf6d045c344b7a93dd5df87f017e1955"
+  },
+  "processed_X_train": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\processed\\X_train.csv",
+    "size": 7151667,
+    "sha256": "a6595975c9d150880a351ce545e53de2ae19a7c7e6f7a7958af967982919362f"
+  },
+  "processed_X_test": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\processed\\X_test.csv",
+    "size": 1788813,
+    "sha256": "71c2beb3449c1947bec20a6e3d44f04405d32b30de7d88a66b8b9eaefb7ea2cc"
+  },
+  "processed_y_train": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\processed\\y_train.csv",
+    "size": 276559,
+    "sha256": "009e4b9dcf61d71070d91492704d447d161f7309b9f4f10e677892b6d98d6b87"
+  },
+  "processed_y_test": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\processed\\y_test.csv",
+    "size": 69148,
+    "sha256": "4303dc0e2a3745a7d0a7523181af8cee8cd4cfe4bab55dd409499b559a2c14ed"
+  },
+  "split_metadata": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\processed\\split_metadata.json",
+    "size": 1319,
+    "sha256": "bd09e42ab78afe9b12e68104ba3d01db3140da9f806efff70a4ae0457e37e5ed"
+  },
+  "production_model": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\models\\phishing_model.joblib",
+    "size": 51777896,
+    "sha256": "fca66c3fadc73855fe4badde7ed47f0a37595720da3517af7e5c7ca02ee6aaa5"
+  },
+  "production_rf": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\models\\random_forest.joblib",
+    "size": 51777896,
+    "sha256": "fca66c3fadc73855fe4badde7ed47f0a37595720da3517af7e5c7ca02ee6aaa5"
+  },
+  "production_lr": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\models\\logistic_regression.joblib",
+    "size": 3677,
+    "sha256": "fa5e785ce2fd5e60a1e70d526a060e840d0e51d2a50fc6570c73d41c9e25cc55"
+  },
+  "app_py": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\app.py",
+    "size": 12598,
+    "sha256": "c5173532339a9d21ddb2a6213587c72c5da986f53fdc1c43bbafda6a5f43ac14"
+  },
+  "feature_extraction_py": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\src\\feature_extraction.py",
+    "size": 8842,
+    "sha256": "0b2b9b2277914af12eb03953a8015870c44816292c9ef50e1defd01408a96742"
+  },
+  "preprocess_py": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\src\\preprocess.py",
+    "size": 26486,
+    "sha256": "845ce2934b77b84658f4e61be1004fefad1d962554949ecf34817cb90e53c7bf"
+  },
+  "train_py": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\src\\train.py",
+    "size": 29866,
+    "sha256": "f5fa6a4197fc661269880be427014afe5a22755f430f1279de8c3c23c6ef63a0"
+  },
+  "realistic_eval_set": {
+    "path": "c:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\realistic_evaluation_set.csv",
+    "size": 10405,
+    "sha256": "eae89a8a6ae7bdee6d28dbe2e81c1dce769e4de7e1fc2ac647fa9b2fec80eca9"
+  }
+}

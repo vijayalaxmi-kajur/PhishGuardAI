@@ -1,0 +1,127 @@
+{
+  "pipeline_version": "phase13c_v1",
+  "random_seed": 42,
+  "salt": "phishguard_phase13c_v1",
+  "initial_raw_records": 117104,
+  "quarantined_benchmark_records": 6356,
+  "quarantined_benchmark_domains": 40,
+  "clean_pool_records": 110748,
+  "exact_duplicates_removed": 1358,
+  "normalized_duplicates_removed": 1516,
+  "conflicting_normalized_urls": 0,
+  "rebalanced_corpus_total": 50144,
+  "rebalanced_class_distribution": {
+    "class_0_legitimate": 39390,
+    "class_0_pct": 78.55376515634971,
+    "class_1_phishing": 10754,
+    "class_1_pct": 21.446234843650284
+  },
+  "protocol_distribution_after_rebalancing": {
+    "class_0_https_count": 34390,
+    "class_0_https_pct": 87.30642294998731,
+    "class_0_http_count": 5000,
+    "class_0_http_pct": 12.693577050012694,
+    "class_1_https_count": 9326,
+    "class_1_https_pct": 86.72122001115864,
+    "class_1_http_count": 1428,
+    "class_1_http_pct": 13.278779988841361
+  },
+  "query_parameter_distribution_after_rebalancing": {
+    "class_0_has_query_count": 516,
+    "class_0_has_query_pct": 1.3099771515613101,
+    "class_1_has_query_count": 1393,
+    "class_1_has_query_pct": 12.953319694997209
+  },
+  "partitions": {
+    "train": {
+      "total": 40088,
+      "class_0": 31604,
+      "class_1": 8484,
+      "class_0_pct": 78.83655956894832,
+      "unique_groups": 31100
+    },
+    "validation": {
+      "total": 5155,
+      "class_0": 3914,
+      "class_1": 1241,
+      "class_0_pct": 75.9262851600388,
+      "unique_groups": 3884
+    },
+    "test": {
+      "total": 4901,
+      "class_0": 3872,
+      "class_1": 1029,
+      "class_0_pct": 79.00428483982861,
+      "unique_groups": 3812
+    }
+  },
+  "leakage_verification": {
+    "train_val_url_overlap": 0,
+    "train_test_url_overlap": 0,
+    "val_test_url_overlap": 0,
+    "train_val_group_overlap": 0,
+    "train_test_group_overlap": 0,
+    "val_test_group_overlap": 0,
+    "train_benchmark_domain_overlap": 0,
+    "val_benchmark_domain_overlap": 0,
+    "test_benchmark_domain_overlap": 0
+  },
+  "feature_schemas": {
+    "22_feature_production_schema": [
+      "url_len",
+      "dom_len",
+      "is_ip",
+      "tld_len",
+      "subdom_cnt",
+      "letter_cnt",
+      "digit_cnt",
+      "special_cnt",
+      "eq_cnt",
+      "qm_cnt",
+      "amp_cnt",
+      "dot_cnt",
+      "dash_cnt",
+      "under_cnt",
+      "letter_ratio",
+      "digit_ratio",
+      "spec_ratio",
+      "is_https",
+      "slash_cnt",
+      "entropy",
+      "path_len",
+      "query_len"
+    ],
+    "30_feature_experimental_schema": [
+      "url_len",
+      "dom_len",
+      "is_ip",
+      "tld_len",
+      "subdom_cnt",
+      "letter_cnt",
+      "digit_cnt",
+      "special_cnt",
+      "eq_cnt",
+      "qm_cnt",
+      "amp_cnt",
+      "dot_cnt",
+      "dash_cnt",
+      "under_cnt",
+      "letter_ratio",
+      "digit_ratio",
+      "spec_ratio",
+      "is_https",
+      "slash_cnt",
+      "entropy",
+      "path_len",
+      "query_len",
+      "host_len",
+      "subdom_len",
+      "dom_entropy",
+      "dom_digit_cnt",
+      "path_depth",
+      "query_param_cnt",
+      "query_entropy",
+      "query_digit_cnt"
+    ]
+  }
+}

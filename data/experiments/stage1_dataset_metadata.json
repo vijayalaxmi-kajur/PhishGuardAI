@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-28T16:15:00Z",
+  "random_seed": 42,
+  "n_train": 91965,
+  "n_validation": 11382,
+  "n_evaluation": 11382,
+  "train_domains_count": 72508,
+  "validation_domains_count": 9199,
+  "evaluation_domains_count": 9199,
+  "zero_domain_leakage_verified": true,
+  "zero_benchmark_leakage_verified": true,
+  "files": {
+    "training": "C:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\experiments\\stage1_training.csv",
+    "validation": "C:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\experiments\\stage1_validation.csv",
+    "evaluation": "C:\\Users\\yalla\\OneDrive\\Desktop\\PhishGuardAI\\data\\experiments\\stage1_evaluation.csv"
+  }
+}

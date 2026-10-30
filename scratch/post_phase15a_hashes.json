@@ -1,0 +1,30 @@
+{
+  "production_model": {
+    "path": "models/phishing_model.joblib",
+    "sha256": "fca66c3fadc73855fe4badde7ed47f0a37595720da3517af7e5c7ca02ee6aaa5"
+  },
+  "cand04": {
+    "path": "models/experiments/phase13c2/cand04_rf_regularized_30f.joblib",
+    "sha256": "bbc5763359bebbfdb2a47bad34bea6d69d703f5c54ba91a11c6cb4d29df57408"
+  },
+  "cand06": {
+    "path": "models/experiments/phase13c2/cand06_hist_gbdt_30f.joblib",
+    "sha256": "452d9e9a6687cf05a209fead54e5c6bb93fa628f93994437f8e018e9fead744b"
+  },
+  "dataset": {
+    "path": "dataset/Dataset.csv",
+    "sha256": "d68b3cd0648dcf9c775347416ad1a8995e8a025921fbe3871ca6158d4db3c3a1"
+  },
+  "phase14a_eval_set": {
+    "path": "data/phase14a/phase14a_verified_evaluation_set.csv",
+    "sha256": "c4eaadadbc3cfcd96494c08e36e46e2dea6b62f6b360fcefed8834e13e83621c"
+  },
+  "phase14a_X_eval": {
+    "path": "data/phase14a/X_eval_30f.csv",
+    "sha256": "d80ad4520fd2ee4089a7174fedf2a695be32585db639f3a1e1c1f9bf093465c8"
+  },
+  "phase14a_y_eval": {
+    "path": "data/phase14a/y_eval.csv",
+    "sha256": "4ba53c34e49e034caa7f9a8f473acb2d9ba06e16061be1306a590ae4e83e1e2f"
+  }
+}

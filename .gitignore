@@ -1,0 +1,31 @@
+# Python virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# SQLite databases & local data
+*.db
+*.sqlite3
+
+# Environment variables
+.env
+
+# Model artifacts (optional to ignore large models in git, or tracked via releases)
+# models/*.joblib
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Backups & Editor configs
+backups/
+.vscode/
+.idea/
+

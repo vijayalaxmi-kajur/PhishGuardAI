@@ -1,0 +1,3 @@
+Model,Accuracy,Phishing Precision (Class 1),Phishing Recall (Class 1),Phishing F1-Score (Class 1),Macro F1-Score,Weighted F1-Score,ROC-AUC,PR-AUC,True Negatives (TN),False Positives (FP),False Negatives (FN),True Positives (TP)
+Logistic Regression (StandardScaler),0.92797,0.68629,0.92043,0.7863,0.8715,0.93216,0.97661,0.8982,18333,1396,264,3054
+Random Forest Classifier,0.97614,0.90515,0.93189,0.91832,0.95218,0.97628,0.99129,0.97162,19405,324,226,3092

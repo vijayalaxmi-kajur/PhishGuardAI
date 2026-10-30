@@ -1,0 +1,94 @@
+{
+  "row_counts": {
+    "train": {
+      "metadata": 40088,
+      "y": 40088,
+      "X_22": 40088,
+      "X_30": 40088
+    },
+    "val": {
+      "metadata": 5155,
+      "y": 5155,
+      "X_22": 5155,
+      "X_30": 5155
+    },
+    "test": {
+      "metadata": 4901,
+      "y": 4901,
+      "X_22": 4901,
+      "X_30": 4901
+    }
+  },
+  "cleanliness": {
+    "X_train_22": {
+      "nulls": 0,
+      "infs": 0,
+      "non_numeric_cols": []
+    },
+    "X_val_22": {
+      "nulls": 0,
+      "infs": 0,
+      "non_numeric_cols": []
+    },
+    "X_test_22": {
+      "nulls": 0,
+      "infs": 0,
+      "non_numeric_cols": []
+    },
+    "X_train_30": {
+      "nulls": 0,
+      "infs": 0,
+      "non_numeric_cols": []
+    },
+    "X_val_30": {
+      "nulls": 0,
+      "infs": 0,
+      "non_numeric_cols": []
+    },
+    "X_test_30": {
+      "nulls": 0,
+      "infs": 0,
+      "non_numeric_cols": []
+    }
+  },
+  "leakage": {
+    "url_overlap": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "group_overlap": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "benchmark_leakage": {
+      "train_url_match": 0,
+      "val_url_match": 0,
+      "test_url_match": 0,
+      "train_domain_match": 0,
+      "val_domain_match": 0,
+      "test_domain_match": 0
+    }
+  },
+  "distributions": {
+    "train": {
+      "total": 40088,
+      "c0": 31604,
+      "c1": 8484,
+      "c1_pct": 21.163440431051686
+    },
+    "val": {
+      "total": 5155,
+      "c0": 3914,
+      "c1": 1241,
+      "c1_pct": 24.0737148399612
+    },
+    "test": {
+      "total": 4901,
+      "c0": 3872,
+      "c1": 1029,
+      "c1_pct": 20.995715160171393
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "total_rows": 116600,
+  "total_columns": 26,
+  "columns": [
+    "url",
+    "url_len",
+    "dom",
+    "dom_len",
+    "is_ip",
+    "tld",
+    "tld_len",
+    "subdom_cnt",
+    "letter_cnt",
+    "digit_cnt",
+    "special_cnt",
+    "eq_cnt",
+    "qm_cnt",
+    "amp_cnt",
+    "dot_cnt",
+    "dash_cnt",
+    "under_cnt",
+    "letter_ratio",
+    "digit_ratio",
+    "spec_ratio",
+    "is_https",
+    "slash_cnt",
+    "entropy",
+    "path_len",
+    "query_len",
+    "label"
+  ],
+  "null_counts": {
+    "tld": 14
+  },
+  "class_distribution": {
+    "class_0_count": 100000,
+    "class_0_pct": 85.76329331046311,
+    "class_1_count": 16600,
+    "class_1_pct": 14.236706689536879
+  },
+  "exact_duplicate_rows": 1369,
+  "exact_duplicate_urls": 1369,
+  "unique_urls": 115231,
+  "duplicates_by_class": {
+    "class_0_duplicates": 1359,
+    "class_1_duplicates": 10
+  },
+  "conflicting_urls_count": 0,
+  "normalized_duplicates": 1529,
+  "unique_normalized_urls": 115071,
+  "normalized_conflicting_urls_count": 0,
+  "unique_registered_domains": 90859,
+  "domains_with_single_url": 85601,
+  "top_10_domains": {
+    "weebly.com": 2465,
+    "google.com": 1450,
+    "pages.dev": 1050,
+    "bit.ly": 763,
+    "hsforms.com": 358,
+    "qrco.de": 329,
+    "r2.dev": 240,
+    "va.gov": 222,
+    "q-r.to": 212,
+    "ead.me": 210
+  },
+  "conflicting_domains_count": 24,
+  "conflicting_domains_pct_of_all_domains": 0.026414554419485137
+}

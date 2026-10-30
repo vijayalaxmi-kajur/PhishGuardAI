@@ -1,0 +1,72 @@
+{
+  "evaluation_phase": "Phase 14A",
+  "dataset_version": "14A-20261028",
+  "generated_at": "2026-10-28T16:20:41Z",
+  "counts": {
+    "raw_total": 1018,
+    "raw_phishing": 800,
+    "raw_legitimate": 208,
+    "raw_stress_unverified": 10,
+    "verified_evaluation_set_total": 963,
+    "verified_legitimate_count": 163,
+    "verified_phishing_count": 800,
+    "quarantined_count": 55
+  },
+  "independence_audit": {
+    "exact_url_overlap_with_history": 0,
+    "normalized_url_overlap_with_history": 0,
+    "realistic_benchmark_url_overlap": 0,
+    "realistic_benchmark_domain_overlap": 0,
+    "unique_registered_domains_in_verified": 302,
+    "unique_group_keys_in_verified": 315,
+    "domains_shared_with_phase13c": 435
+  },
+  "representation_slices": {
+    "https_count": 153,
+    "http_count": 810,
+    "query_bearing_count": 145,
+    "no_query_count": 818,
+    "length_mean": 86.30010384215991,
+    "length_median": 81.0,
+    "length_min": 19,
+    "length_max": 507
+  },
+  "categories": {
+    "phish_credential_harvesting_path": 702,
+    "legit_documentation_deep_path": 79,
+    "phish_multi_parameter_token": 68,
+    "legit_academic_search_query": 43,
+    "phish_free_hosting_builder": 30,
+    "legit_community_technical_qa": 16,
+    "legit_government_portal": 15,
+    "legit_institutional_http": 10
+  },
+  "sources": {
+    "Mitchell Krogza Phishing.Database": 800,
+    "Python Package Index (PyPI) Official Registry": 36,
+    "Rust Language Official Documentation": 20,
+    "European Molecular Biology Laboratory (EMBL-EBI) Europe PMC": 16,
+    "Go Language Official Package Registry": 15,
+    "Official Sovereign Government / Standards Portal": 15,
+    "Internet Engineering Task Force (IETF)": 10,
+    "Authoritative Institutional Plain HTTP Archive": 10,
+    "The Linux Kernel Organization Official Documentation": 8,
+    "World Wide Web Consortium (W3C)": 8,
+    "Wikimedia Foundation (en.wiktionary.org)": 4,
+    "Stack Exchange Network (superuser.com)": 3,
+    "Stack Exchange Network (serverfault.com)": 3,
+    "Stack Exchange Network (unix.stackexchange.com)": 3,
+    "Stack Exchange Network (askubuntu.com)": 3,
+    "Stack Exchange Network (math.stackexchange.com)": 2,
+    "Stack Exchange Network (stats.stackexchange.com)": 2,
+    "Wikimedia Foundation (www.wikidata.org)": 2,
+    "Wikimedia Foundation (en.wikibooks.org)": 2,
+    "Wikimedia Foundation (commons.wikimedia.org)": 1
+  },
+  "hashes": {
+    "raw_phishing_csv": "dab5feca17a9a3136b77b38a749dba8430832bc6e4b32b869dd69d8f51d44d34",
+    "raw_legitimate_csv": "d6168b51eff68b0be39b669034f3d9bd2ac17e2bc0237d875e881c6996f09a21",
+    "verified_evaluation_set_csv": "c4eaadadbc3cfcd96494c08e36e46e2dea6b62f6b360fcefed8834e13e83621c",
+    "quarantined_csv": "f02b0e90d978c2163b4484c66b2c980085635708d9bca7d801c7ae660c24b4b0"
+  }
+}

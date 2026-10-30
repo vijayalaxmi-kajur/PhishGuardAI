@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-10-28 12:55:44",
+  "candidate_model": "random_forest",
+  "feature_names": [
+    "url_len",
+    "dom_len",
+    "is_ip",
+    "tld_len",
+    "subdom_cnt",
+    "letter_cnt",
+    "digit_cnt",
+    "special_cnt",
+    "eq_cnt",
+    "qm_cnt",
+    "amp_cnt",
+    "dot_cnt",
+    "dash_cnt",
+    "under_cnt",
+    "letter_ratio",
+    "digit_ratio",
+    "spec_ratio",
+    "is_https",
+    "slash_cnt",
+    "entropy",
+    "path_len",
+    "query_len"
+  ],
+  "metrics_summary": {
+    "logistic_regression": {
+      "accuracy": 0.9279732720093722,
+      "phishing_precision": 0.6862921348314607,
+      "phishing_recall": 0.9204339963833634,
+      "phishing_f1": 0.786302780638517,
+      "roc_auc": 0.9766138592026847,
+      "pr_auc": 0.898196869209575,
+      "confusion_matrix": {
+        "tn": 18333,
+        "fp": 1396,
+        "fn": 264,
+        "tp": 3054
+      }
+    },
+    "random_forest": {
+      "accuracy": 0.9761357226537076,
+      "phishing_precision": 0.905152224824356,
+      "phishing_recall": 0.9318866787221217,
+      "phishing_f1": 0.9183249183249184,
+      "roc_auc": 0.9912900727094444,
+      "pr_auc": 0.9716154082122644,
+      "confusion_matrix": {
+        "tn": 19405,
+        "fp": 324,
+        "fn": 226,
+        "tp": 3092
+      }
+    }
+  }
+}

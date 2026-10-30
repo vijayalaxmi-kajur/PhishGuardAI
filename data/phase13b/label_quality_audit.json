@@ -1,0 +1,294 @@
+{
+  "conflicting_domain_samples": [
+    {
+      "domain": "5mp.eu",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxp://5mp[.]eu/web.php?a=bkke"
+      ],
+      "sample_class_1": [
+        "hxxps://www[.]5mp[.]eu/fajlok2/css4/owa_www.5mp.eu_.html"
+      ]
+    },
+    {
+      "domain": "adobe.com",
+      "total_urls": 23,
+      "class_0_count": 1,
+      "class_1_count": 22,
+      "sample_class_0": [
+        "hxxps://www[.]adobe[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://new[.]express[.]adobe[.]com/webpage/iYgmZ3GPjHONT",
+        "hxxps://new[.]express[.]adobe[.]com/webpage/BapFdY7ZDeOi4"
+      ]
+    },
+    {
+      "domain": "amazonaws.com",
+      "total_urls": 18,
+      "class_0_count": 2,
+      "class_1_count": 16,
+      "sample_class_0": [
+        "hxxp://www[.]gs-titanium[.]com[.]s3-website-us-east-1[.]amazonaws[.]com/",
+        "hxxp://nonasoftware[.]org[.]s3-website-us-east-1[.]amazonaws[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://flxti[.]s3[.]us-east-2[.]amazonaws[.]com/home.html",
+        "hxxps://s3[.]us-east-2[.]amazonaws[.]com/payhoa-production/089e5f07d037dbc45680caad6f062a1b9f9b35afd2e1a88f09d82e0d449fb0c7?response-content-disposition=inline%3B%20filename%3D%22ARVESTLOGINPAGEsecureloginLOGINPAGEARVESTBANKsecureloginArvestBankHomePageCustomerLoginArvestBank2025.html%22&amp;X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAJIKHGGHIPWN2CJVA%2F20250915%2Fus-east-2%2Fs3%2Faws4_request&amp;X-Amz-Date=20250915T233603Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Expires=518400&amp;X-Amz-Signature=48bdab422b75e39b47197798945565d518d3de76384d9e47d43bb69c1805a1a4"
+      ]
+    },
+    {
+      "domain": "archive.org",
+      "total_urls": 10,
+      "class_0_count": 8,
+      "class_1_count": 2,
+      "sample_class_0": [
+        "hxxps://web[.]archive[.]org/web/20100615074349/hxxp://www.health.gov.fj/services.html",
+        "hxxps://archive[.]org/"
+      ],
+      "sample_class_1": [
+        "hxxps://web[.]archive[.]org/web/20241124121202/cloud.airbvs.com/mouhsiswxaxaz75bfn81qeho6lwbnndri9tvu7ey03vp88lum",
+        "hxxps://web[.]archive[.]org/web/20241124121202/cloud.airbvs.com/mouhsiswxaxaz75bfn81qeho6lwbnndri9tvu7ey03vp88lum#bWJAbWFjaGJhci5nbWJo"
+      ]
+    },
+    {
+      "domain": "azurewebsites.net",
+      "total_urls": 8,
+      "class_0_count": 2,
+      "class_1_count": 6,
+      "sample_class_0": [
+        "hxxps://geo-blocked-site[.]azurewebsites[.]net/",
+        "hxxp://youngafrica[.]azurewebsites[.]net/"
+      ],
+      "sample_class_1": [
+        "hxxp://sunauthenticate[.]azurewebsites[.]net/",
+        "hxxps://proxy-sec-beyond-11-5-2024-ffarctdqaagmekea[.]eastus-01[.]azurewebsites[.]net/puppeteer-content-retry?url=hxxps://www.sfr.fr%23lienML"
+      ]
+    },
+    {
+      "domain": "blogspot.com",
+      "total_urls": 63,
+      "class_0_count": 4,
+      "class_1_count": 59,
+      "sample_class_0": [
+        "hxxp://hospitalsouzaaguiar[.]blogspot[.]com/",
+        "hxxp://schoolatblairgrocery[.]blogspot[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://ingservi-2830860995777969513[.]blogspot[.]com/?m=1",
+        "hxxps://ingservi-2830860995777969513[.]blogspot[.]com/"
+      ]
+    },
+    {
+      "domain": "box.com",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxps://www[.]box[.]com/home"
+      ],
+      "sample_class_1": [
+        "hxxps://app[.]box[.]com/notes/1979373409553?s=hf0m1q56q7pb2shw1ziynzjxckt1607e"
+      ]
+    },
+    {
+      "domain": "criteo.com",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxps://www[.]criteo[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://cat[.]fr3[.]eu[.]criteo[.]com/delivery/ck.php?cppv=3&cpp=c9if1MllNBcf9MgMfX0eEUvxwsGdTAkf9_76oxi5HHAcP9WsiqwNBnklW7ucRVnVCtZ5HuL86a1z-sOAthtbMLsCcU1mOVryF1oR9WPOz6VJjO7I17RZacNOCqpd_lmgCi6ZYMtbQk_q3PSzK_ZcfSWb8FYKHyoJVRILIDlk7NPg_lEPxKPkrtVapImnnCxSDWKDxjCsVqNIn9EE5xp9WZljLN-VSVxbvhaICD4NzZCN8DqUIcd82WsGimzqAB5QyLaEFb7zDJAL7XBwyV8ewR7Eor1-HGt9pDJLB2J8DU1a7OvpOvxrm-y9IFaa9pTSmYJtVS55plw9mGfLi2YGb3vstwCm5epsNw67uttwjAN6WGTN09NlTFjVpH_j1mOxq8TLa3r8nbhPvxBXNj-gk1nl6Dk4UekUicbFPFE6HHPRrPzIkkufPoDJGRnTrL4-F_5ujuDJxFfYQsRFX3PZPoj94SRB6q5oyahcmg7o6scKyzWoQluC5_r_U0w__eq52aHiP2bNyZhg6uAK5fKq1pde_28laXHqzXAnLN9qVzjmWmcB1etK2HB9naMipGAw83hKEpJm86YPnXcXuCjwGZ4hRmRofx3JRYm50PDz7VqEj7vi_b1V1NaRPU_s9kfW2fyJ3g&maxdest=hxxps://l.ead.me/jscontroller"
+      ]
+    },
+    {
+      "domain": "dropbox.com",
+      "total_urls": 109,
+      "class_0_count": 1,
+      "class_1_count": 108,
+      "sample_class_0": [
+        "hxxps://www[.]dropbox[.]com"
+      ],
+      "sample_class_1": [
+        "hxxps://www[.]dropbox[.]com/scl/fi/f5ggi6vx5qajkuybrtygv/Your-bill-is-available.paper?rlkey=o6u63veni1lqsv64njmymdawk&st=hy91dnrz&dl=0",
+        "hxxps://www[.]dropbox[.]com/scl/fi/6zb9fbt9fn9p4zzd587si/YOUR-LATEST-BILL-IS-READY.paper?rlkey=2xoashfvwbw2k2uqve8esdtz0&st=yf7yktj8&dl=0"
+      ]
+    },
+    {
+      "domain": "gitlab.io",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxps://regen-network[.]gitlab[.]io/"
+      ],
+      "sample_class_1": [
+        "hxxps://gopesine-teraxionat-gitlab-io-11168d[.]gitlab[.]io/?resson&op=c&mainid=32144&em=216902700_163584_566544"
+      ]
+    },
+    {
+      "domain": "google.com",
+      "total_urls": 1450,
+      "class_0_count": 11,
+      "class_1_count": 1439,
+      "sample_class_0": [
+        "hxxps://sites[.]google[.]com/site/inescmn/",
+        "hxxps://sites[.]google[.]com/site/awmmath/home"
+      ],
+      "sample_class_1": [
+        "hxxps://sites[.]google[.]com/view/6782983989292933343/",
+        "hxxps://docs[.]google[.]com/presentation/d/e/2PACX-1vQFDjlG4PIjF0oOn0eh5xTjvfWullpZPF0FVYjWhDkfCZNxC1QAqjm8m7pcKNFOIBN7YOa2OnFIh350/pub"
+      ]
+    },
+    {
+      "domain": "home.pl",
+      "total_urls": 5,
+      "class_0_count": 3,
+      "class_1_count": 2,
+      "sample_class_0": [
+        "hxxp://www[.]aabiot[.]home[.]pl/MainEN/A%26A_Eng/A%26A_Biotechnology.html",
+        "hxxp://www[.]clickweb1542908[.]home[.]pl/"
+      ],
+      "sample_class_1": [
+        "hxxps://serwer2537704[.]home[.]pl/",
+        "hxxps://serwer2479343[.]home[.]pl/"
+      ]
+    },
+    {
+      "domain": "jimdofree.com",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxps://grc01-green[.]jimdofree[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://sog-mail[.]jimdofree[.]com/"
+      ]
+    },
+    {
+      "domain": "kemkes.go.id",
+      "total_urls": 3,
+      "class_0_count": 1,
+      "class_1_count": 2,
+      "sample_class_0": [
+        "hxxp://www[.]litbang[.]kemkes[.]go[.]id/"
+      ],
+      "sample_class_1": [
+        "hxxps://link[.]kemkes[.]go[.]id/fergasx?s=XwYZNy&li=%7BLIST_ID%7D&e=F&unsubcribe=laurmartin@ymail.com&p=ankthyF9&id=YBR4KFTNM31WT0PS19VMVJPMK5YSBYWKC0MTT8WLWUPO5TQTJS?knxhl8hxijgjkd9uc6osqpm12m6flzjmclbhtzxrui4cy04lc9x0jjabv4ibktt3iolnv7dlzxfl7qhur3l6dfyyf3vn4kalfwbm&stpe=default",
+        "hxxp://link[.]kemkes[.]go[.]id/AZJJI"
+      ]
+    },
+    {
+      "domain": "matsuniversity.ac.in",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxps://www[.]matsuniversity[.]ac[.]in/"
+      ],
+      "sample_class_1": [
+        "hxxps://matsuniversity[.]ac[.]in/club.php"
+      ]
+    },
+    {
+      "domain": "mufg.jp",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxps://www[.]mufg[.]jp/"
+      ],
+      "sample_class_1": [
+        "hxxps://www[.]bk[.]mufg[.]jp/"
+      ]
+    },
+    {
+      "domain": "myftpupload.com",
+      "total_urls": 2,
+      "class_0_count": 1,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxp://o6d[.]b63[.]myftpupload[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://fg0[.]8f1[.]myftpupload[.]com/net/TU17HLK/index.php?FGDD=1"
+      ]
+    },
+    {
+      "domain": "myshopify.com",
+      "total_urls": 4,
+      "class_0_count": 1,
+      "class_1_count": 3,
+      "sample_class_0": [
+        "hxxps://immuno-technologies-inc[.]myshopify[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://1rsyke-5e[.]myshopify[.]com/?oseid=Lhcco1JrhT4mv1H2dKdbDpRe",
+        "hxxps://spxkwr-cz[.]myshopify[.]com/cart/c/hWN2xVL2NcYGddoiF7UpuMBK?key=5f542539613fbaea3efba5b57efe8790&amp;channel=buy_button&amp;_fd=0"
+      ]
+    },
+    {
+      "domain": "squarespace.com",
+      "total_urls": 7,
+      "class_0_count": 5,
+      "class_1_count": 2,
+      "sample_class_0": [
+        "hxxps://sherkowcenter[.]squarespace[.]com/",
+        "hxxp://materialsri[.]squarespace[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxps://saffron-cheetah-sfeg[.]squarespace[.]com/",
+        "hxxps://maroon-hexahedron-r7px[.]squarespace[.]com/"
+      ]
+    },
+    {
+      "domain": "uk.com",
+      "total_urls": 17,
+      "class_0_count": 16,
+      "class_1_count": 1,
+      "sample_class_0": [
+        "hxxps://www[.]generaldynamics[.]uk[.]com",
+        "hxxp://www[.]idc[.]uk[.]com/"
+      ],
+      "sample_class_1": [
+        "hxxp://xwinistered[.]uk[.]com/out.php?email=f.gardener@att.net"
+      ]
+    }
+  ],
+  "top_phishing_hosts": {
+    "weebly.com": 2454,
+    "google.com": 1439,
+    "pages.dev": 1050,
+    "bit.ly": 763,
+    "hsforms.com": 358,
+    "qrco.de": 329,
+    "r2.dev": 240,
+    "q-r.to": 212,
+    "ead.me": 210,
+    "campaign-archive.com": 204,
+    "t.co": 200,
+    "jotform.com": 198,
+    "webflow.io": 164,
+    "web.app": 157,
+    "wixsite.com": 150
+  },
+  "mendeley_partition_split": {
+    "rows_0_to_99999": {
+      "count": 100000,
+      "all_class_0": true
+    },
+    "rows_100000_to_111659": {
+      "count": 11660,
+      "all_class_1": true
+    },
+    "rows_111660_to_116599": {
+      "count": 4940,
+      "all_class_1": true
+    }
+  }
+}
