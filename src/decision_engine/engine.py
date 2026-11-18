@@ -23,6 +23,9 @@ from src.threat_intelligence.base import (
     ThreatStatus,
 )
 from src.threat_intelligence.manager import ThreatIntelligenceManager
+from src.threat_intelligence.whois_checker import DomainAgeChecker, DomainAgeResult
+from src.threat_intelligence.whitelist import VerifiedDomainWhitelist, WhitelistResult
+from src.sandbox import DeepSandboxCrawler, SandboxReport
 from src.experiments.phase_c_features import ExperimentalURLFeatureExtractor
 from src.decision_engine.adapter import ModelInferenceAdapter
 from src.decision_engine.url_validation import validate_url, URLValidationResult
@@ -145,6 +148,7 @@ class LayeredDecisionEngine:
         "netflix",
         "amazon",
         "google",
+        "youtube",
         "bankofamerica",
         "wellsfargo",
         "dhl",
@@ -160,6 +164,9 @@ class LayeredDecisionEngine:
         feature_schema: str = "baseline",
         threat_intel_manager: Optional[ThreatIntelligenceManager] = None,
         model_name: str = "RandomForest",
+        domain_age_checker: Optional[DomainAgeChecker] = None,
+        whitelist_registry: Optional[VerifiedDomainWhitelist] = None,
+        sandbox_crawler: Optional[DeepSandboxCrawler] = None,
     ) -> None:
         """Initialize the layered decision engine.
         
@@ -168,10 +175,16 @@ class LayeredDecisionEngine:
             feature_schema: 'baseline' (22 features) or 'experimental' (30 features).
             threat_intel_manager: ThreatIntelligenceManager instance.
             model_name: Name of the underlying ML model.
+            domain_age_checker: DomainAgeChecker instance for registration telemetry.
+            whitelist_registry: Optional VerifiedDomainWhitelist instance.
+            sandbox_crawler: Optional DeepSandboxCrawler for Tier 3 deep inspection.
         """
         self._model = ml_model
         self._schema = feature_schema
         self._intel_manager = threat_intel_manager or ThreatIntelligenceManager()
+        self._domain_age_checker = domain_age_checker
+        self._whitelist = whitelist_registry
+        self._sandbox = sandbox_crawler
         self._extractor = ExperimentalURLFeatureExtractor()
         self._model_name = model_name
 
@@ -274,6 +287,91 @@ class LayeredDecisionEngine:
                 },
             )
 
+        # Domain Age & Registration Telemetry
+        is_new_domain = False
+        if self._domain_age_checker is not None:
+            age_report = self._domain_age_checker.get_domain_age(clean_url)
+            structural_indicators["domain_age_days"] = age_report.domain_age_days
+            structural_indicators["is_new_domain"] = age_report.is_new_domain
+            structural_indicators["is_recent_domain"] = age_report.is_recent_domain
+            structural_indicators["registrar"] = age_report.registrar
+            if age_report.registered_domain:
+                structural_indicators["registered_domain"] = age_report.registered_domain
+            is_new_domain = age_report.is_new_domain
+
+        # Verified Domain Whitelist Registry
+        is_clean_whitelisted = False
+        if self._whitelist is not None:
+            whitelist_res = self._whitelist.check_whitelist(clean_url)
+            structural_indicators["is_whitelisted"] = whitelist_res.is_whitelisted
+            structural_indicators["is_multi_tenant"] = whitelist_res.is_multi_tenant
+            if whitelist_res.is_multi_tenant:
+                structural_indicators["has_hosting_abuse"] = True
+
+            # Whitelist Evaluation: Clean platform domains bypass lexical false positives
+            is_clean_whitelisted = (
+                whitelist_res.is_whitelisted
+                and not structural_indicators.get("has_misleading_subdomain", False)
+                and not structural_indicators.get("has_punycode", False)
+                and not structural_indicators.get("is_ip", False)
+                and not structural_indicators.get("has_mixed_script", False)
+            )
+
+            if is_clean_whitelisted:
+                explanation.append(
+                    f"Verified Whitelist Match: Domain '{whitelist_res.registered_domain}' belongs to verified "
+                    f"platform registry ({whitelist_res.category}). Lexical query and path anomalies suppressed."
+                )
+                calibrated_score = min(model_score, 0.05) if model_score is not None else 0.05
+                return DecisionResult(
+                    url=clean_url,
+                    verdict=DecisionVerdict.NO_KNOWN_THREAT,
+                    risk_level=RiskLevel.LOW,
+                    model_score=round(calibrated_score, 4),
+                    model_name=self._model_name,
+                    matched_threat_intel_sources=[],
+                    evidence_based_explanation=explanation,
+                    uncertainty_or_warnings=warnings,
+                    structural_indicators=structural_indicators,
+                    threat_intel_summary={
+                        "checked_providers": self._intel_manager.get_configured_providers(),
+                        "matched": False,
+                        "whitelist_matched": True,
+                        "whitelist_category": whitelist_res.category,
+                    },
+                )
+
+        # Newly Registered Domain Telemetry Alert
+        if is_new_domain and not is_clean_whitelisted:
+            explanation.append(
+                f"High-Risk Infrastructure Telemetry: Domain '{structural_indicators.get('registered_domain', clean_url)}' was created "
+                f"only {structural_indicators.get('domain_age_days')} days ago (Registrar: {structural_indicators.get('registrar') or 'Unknown'}). "
+                f"Newly registered domains (< 14 days) account for over 80% of zero-day phishing campaigns."
+            )
+            warnings.append(f"Newly registered domain ({structural_indicators.get('domain_age_days')} days old).")
+
+            if (
+                structural_indicators.get("has_auth_path", False)
+                or structural_indicators.get("has_live_password_input", False)
+                or (model_score is not None and model_score >= 0.35)
+                or structural_indicators.get("has_suspicious_tld", False)
+            ):
+                return DecisionResult(
+                    url=clean_url,
+                    verdict=DecisionVerdict.HIGH_RISK,
+                    risk_level=RiskLevel.HIGH,
+                    model_score=model_score,
+                    model_name=self._model_name,
+                    matched_threat_intel_sources=[],
+                    evidence_based_explanation=explanation,
+                    uncertainty_or_warnings=warnings,
+                    structural_indicators=structural_indicators,
+                    threat_intel_summary={
+                        "checked_providers": self._intel_manager.get_configured_providers(),
+                        "matched": False,
+                    },
+                )
+
         # TIER 2: Severe Structural Indicators (Direct IP Hostnames, Homographs, Misleading Subdomains)
         if structural_indicators.get("is_ip", False) and structural_indicators.get("has_auth_path", False):
             explanation.append(
@@ -350,6 +448,41 @@ class LayeredDecisionEngine:
             )
 
         if structural_indicators.get("has_hosting_abuse", False):
+            if self._sandbox is not None:
+                direct_html = live_telemetry.get("html_body") if live_telemetry else None
+                screenshot_bytes = live_telemetry.get("screenshot_bytes") if live_telemetry else None
+                sandbox_report = self._sandbox.inspect_url(
+                    clean_url, direct_html=direct_html, screenshot_bytes=screenshot_bytes
+                )
+                structural_indicators["sandbox_report"] = sandbox_report.to_dict()
+
+                if sandbox_report.is_phishing_confirmed:
+                    return DecisionResult(
+                        url=clean_url,
+                        verdict=(
+                            DecisionVerdict.CONFIRMED_MALICIOUS
+                            if sandbox_report.escalated_risk_level == "CRITICAL"
+                            else DecisionVerdict.HIGH_RISK
+                        ),
+                        risk_level=(
+                            RiskLevel.CRITICAL
+                            if sandbox_report.escalated_risk_level == "CRITICAL"
+                            else RiskLevel.HIGH
+                        ),
+                        model_score=model_score,
+                        model_name=self._model_name,
+                        matched_threat_intel_sources=[],
+                        evidence_based_explanation=explanation + sandbox_report.explanations,
+                        uncertainty_or_warnings=warnings + [
+                            "Tier 3 Deep Sandbox confirmed active phishing / credential harvesting indicators."
+                        ],
+                        structural_indicators=structural_indicators,
+                        threat_intel_summary={
+                            "checked_providers": self._intel_manager.get_configured_providers(),
+                            "matched": False,
+                        },
+                    )
+
             return DecisionResult(
                 url=clean_url,
                 verdict=DecisionVerdict.SUSPICIOUS,
@@ -478,6 +611,13 @@ class LayeredDecisionEngine:
                     )
                     verdict = DecisionVerdict.SUSPICIOUS
                     risk_level = RiskLevel.MEDIUM
+                elif structural_indicators.get("is_new_domain", False):
+                    explanation.append(
+                        "Low lexical anomaly score, but newly registered domain status mandates caution."
+                    )
+                    warnings.append("Newly registered domains (< 14 days) require external verification regardless of low lexical score.")
+                    verdict = DecisionVerdict.SUSPICIOUS
+                    risk_level = RiskLevel.MEDIUM
                 else:
                     explanation.append(
                         "Low lexical anomaly score and absence of suspicious structural indicators."
@@ -490,8 +630,43 @@ class LayeredDecisionEngine:
                     )
         else:
             explanation.append("Machine learning model was unavailable; evaluation based strictly on structural and threat intelligence feeds.")
-            verdict = DecisionVerdict.INCONCLUSIVE
-            risk_level = RiskLevel.UNKNOWN
+            if structural_indicators.get("is_new_domain", False):
+                verdict = DecisionVerdict.SUSPICIOUS
+                risk_level = RiskLevel.MEDIUM
+            else:
+                verdict = DecisionVerdict.INCONCLUSIVE
+                risk_level = RiskLevel.UNKNOWN
+
+        # TIER 4: Tier 3 Deep Sandboxing & DOM Harvester Inspection
+        if self._sandbox is not None and (
+            verdict in {DecisionVerdict.SUSPICIOUS, DecisionVerdict.INCONCLUSIVE}
+            or structural_indicators.get("is_multi_tenant", False)
+        ):
+            direct_html = live_telemetry.get("html_body") if live_telemetry else None
+            screenshot_bytes = live_telemetry.get("screenshot_bytes") if live_telemetry else None
+            sandbox_report = self._sandbox.inspect_url(
+                clean_url, direct_html=direct_html, screenshot_bytes=screenshot_bytes
+            )
+            structural_indicators["sandbox_report"] = sandbox_report.to_dict()
+
+            if sandbox_report.is_phishing_confirmed:
+                verdict = (
+                    DecisionVerdict.CONFIRMED_MALICIOUS
+                    if sandbox_report.escalated_risk_level == "CRITICAL"
+                    else DecisionVerdict.HIGH_RISK
+                )
+                risk_level = (
+                    RiskLevel.CRITICAL
+                    if sandbox_report.escalated_risk_level == "CRITICAL"
+                    else RiskLevel.HIGH
+                )
+                explanation.extend(sandbox_report.explanations)
+                warnings.append("Tier 3 Deep Sandbox confirmed active phishing / credential harvesting indicators.")
+            elif sandbox_report.is_suspicious:
+                verdict = DecisionVerdict.HIGH_RISK
+                risk_level = RiskLevel.HIGH
+                explanation.extend(sandbox_report.explanations)
+                warnings.append("Tier 3 Deep Sandbox detected suspicious DOM structure or cloaking.")
 
         return DecisionResult(
             url=clean_url,

@@ -1,0 +1,25 @@
+{
+  "name": "@phishguard/sdk",
+  "version": "1.0.0",
+  "description": "Official Node.js & TypeScript SDK for PhishGuardAI Phishing Detection & Threat Intelligence",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "phishing",
+    "security",
+    "cybersecurity",
+    "threat-intelligence",
+    "url-scanner",
+    "whois",
+    "anti-phishing"
+  ],
+  "author": "PhishGuardAI Security Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

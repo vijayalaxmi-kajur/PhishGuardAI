@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phishguard"
+version = "1.0.0"
+authors = [
+  { name="PhishGuardAI Security Team", email="support@phishguard.ai" },
+]
+description = "Official Python SDK for PhishGuardAI Phishing & Threat Intelligence Detection"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Security",
+]
+

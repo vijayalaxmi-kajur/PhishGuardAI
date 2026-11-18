@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — PhishGuardAI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .legal-container {
+      max-width: 860px;
+      margin: 3rem auto;
+      padding: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    .legal-container h1 { color: var(--text-primary); margin-bottom: 0.5rem; }
+    .legal-container h2 { color: var(--cyan-primary); margin-top: 2rem; margin-bottom: 0.5rem; font-size: 1.25rem; }
+    .legal-container p { margin-bottom: 1rem; font-size: 0.95rem; }
+    .legal-container ul { margin-bottom: 1rem; padding-left: 1.5rem; }
+    .legal-disclaimer-box {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--red-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      color: #fca5a5;
+    }
+  </style>
+</head>
+<body>
+  <div class="legal-container">
+    <a href="/" style="color: var(--cyan-primary); text-decoration: none; font-size: 0.9rem;">← Back to Dashboard</a>
+    <h1 style="margin-top: 1rem;">PhishGuardAI Terms of Service</h1>
+    <p><em>Last updated: November 17, 2026</em></p>
+
+    <div class="legal-disclaimer-box">
+      <strong>CRITICAL CYBERSECURITY DISCLAIMER & LIMITATION OF LIABILITY:</strong>
+      <p style="margin-top: 0.5rem; margin-bottom: 0;">
+        PhishGuardAI is an AI-powered automated security classification platform that evaluates probabilistic indicators, domain age telemetry, and structural heuristics. <strong>No cybersecurity software or machine learning model can guarantee 100% detection of zero-day attacks or complete immunity from malicious websites.</strong> PhishGuardAI is provided "as is" and "as available" without warranties of any kind. Under no circumstances shall PhishGuardAI or its contributors be liable for direct, indirect, incidental, punitive, or consequential damages resulting from user reliance on scan verdicts, missed phishing attacks, false positives, or security incidents.
+      </p>
+    </div>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By accessing the PhishGuardAI website, browser extensions, developer APIs, or SDKs, you agree to be bound by these Terms of Service. If you do not agree to these terms, you must discontinue using our services immediately.</p>
+
+    <h2>2. Description of Service</h2>
+    <p>PhishGuardAI provides multi-tiered automated threat detection for uniform resource locators (URLs). The service inspects domain metadata, whois registration telemetry, lexical structures, and web page content to provide a security score and risk classification.</p>
+
+    <h2>3. Acceptable Use Policy (AUP)</h2>
+    <p>You agree to use PhishGuardAI solely for legitimate defensive, administrative, and research purposes. You expressly agree <strong>not</strong> to:</p>
+    <ul>
+      <li>Use the API to test or optimize evasive malware, credential harvesting kits, or offensive phishing campaigns.</li>
+      <li>Attempt to reverse-engineer, decompile, or extract the underlying model weights or training datasets.</li>
+      <li>Exceed prescribed rate limits or attempt denial-of-service (DoS) attacks against our infrastructure.</li>
+      <li>Share, transfer, or publish private API keys outside authorized team environments.</li>
+    </ul>
+
+    <h2>4. Subscriptions, Quotas & Billing</h2>
+    <p>Paid tiers (Developer Pro, Business, Enterprise) are billed on a recurring monthly basis through our payment processor, Stripe. Quotas reset automatically at the start of each billing cycle. Subscriptions can be canceled at any time through the self-service Customer Portal; upon cancellation, accounts remain active through the end of the prepaid period and subsequently transition to the Free Community tier.</p>
+
+    <h2>5. Termination</h2>
+    <p>We reserve the right to suspend or terminate access to any account that violates this Acceptable Use Policy or engages in abusive request volumes without prior notice.</p>
+
+    <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); font-size: 0.85rem; color: var(--text-muted);">
+      For legal inquiries: <a href="mailto:legal@phishguard.ai" style="color: var(--cyan-primary);">legal@phishguard.ai</a>
+    </div>
+  </div>
+</body>
+</html>
+

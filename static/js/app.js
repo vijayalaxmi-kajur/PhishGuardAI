@@ -1181,6 +1181,440 @@
                 }
             });
         }
+
+        // Tab Navigation
+        initTabs();
+
+        // Developer Portal & SDK Code Generator
+        initDeveloperPortal();
+    }
+
+    /**
+     * Tab Navigation Switching Logic
+     */
+    function initTabs() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                tabBtns.forEach(b => b.classList.remove('active'));
+                panels.forEach(p => p.classList.add('hidden'));
+
+                btn.classList.add('active');
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                }
+
+                if (targetId === 'panel-developer') {
+                    loadDeveloperData();
+                }
+            });
+        });
+    }
+
+    /**
+     * Code Snippets & Developer API Key Management
+     */
+    const CODE_SNIPPETS = {
+        python: `# Python SDK Quickstart
+from phishguard import PhishGuardClient
+
+client = PhishGuardClient(
+    api_key="YOUR_API_KEY",
+    base_url="http://127.0.0.1:5000"
+)
+
+# Deep scan a suspicious link
+result = client.scan("http://chase-bank-verify.xyz")
+print("Verdict:", result["verdict"])
+print("Risk Score:", result["phishing_probability"])
+print("Explanation:", result["explanation"])`,
+
+        node: `// Node.js & TypeScript SDK Quickstart
+const { PhishGuardClient } = require("@phishguard/sdk");
+
+const client = new PhishGuardClient({
+    apiKey: "YOUR_API_KEY",
+    baseUrl: "http://127.0.0.1:5000"
+});
+
+async function run() {
+    const res = await client.scan("http://chase-bank-verify.xyz");
+    console.log("Verdict:", res.verdict);
+    console.log("Risk Level:", res.risk_level);
+}
+run();`,
+
+        curl: `# Direct REST API cURL Request
+curl -X POST http://127.0.0.1:5000/api/v1/scan \\
+  -H "Content-Type: application/json" \\
+  -H "X-API-Key: YOUR_API_KEY" \\
+  -d '{"url": "http://chase-bank-verify.xyz", "check_presence": true}'`
+    };
+
+    let activeLang = 'python';
+    let devSessionToken = localStorage.getItem('phishguard_dev_token') || null;
+
+    function initDeveloperPortal() {
+        const codeTabBtns = document.querySelectorAll('.code-tab-btn');
+        const codeBox = document.getElementById('code-snippet-box');
+        const btnCopySnippet = document.getElementById('btn-copy-snippet');
+        const btnCreateKey = document.getElementById('btn-create-key');
+        const btnCopyRawKey = document.getElementById('btn-copy-raw-key');
+
+        // Snippet tab buttons
+        codeTabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                codeTabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeLang = btn.getAttribute('data-lang');
+                if (codeBox && CODE_SNIPPETS[activeLang]) {
+                    codeBox.textContent = CODE_SNIPPETS[activeLang];
+                }
+            });
+        });
+
+        // Copy snippet
+        if (btnCopySnippet && codeBox) {
+            btnCopySnippet.addEventListener('click', () => {
+                navigator.clipboard.writeText(codeBox.textContent).then(() => {
+                    btnCopySnippet.textContent = 'Copied! ✓';
+                    setTimeout(() => { btnCopySnippet.textContent = 'Copy Code'; }, 1500);
+                });
+            });
+        }
+
+        // Copy raw newly generated key
+        if (btnCopyRawKey) {
+            btnCopyRawKey.addEventListener('click', () => {
+                const rawKey = document.getElementById('raw-key-display');
+                if (rawKey) {
+                    navigator.clipboard.writeText(rawKey.textContent).then(() => {
+                        btnCopyRawKey.textContent = 'Copied! ✓';
+                        setTimeout(() => { btnCopyRawKey.textContent = 'Copy'; }, 1500);
+                    });
+                }
+            });
+        }
+
+        // Self-Serve Razorpay Upgrade Buttons
+        ['btn-upgrade-pro', 'btn-upgrade-biz'].forEach(btnId => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                btn.addEventListener('click', async () => {
+                    await ensureDevSession();
+                    if (!devSessionToken) return;
+
+                    const tier = btn.getAttribute('data-tier') || 'developer_pro';
+                    btn.disabled = true;
+                    btn.textContent = 'Creating Order...';
+
+                    try {
+                        const resp = await fetch('/api/v1/billing/razorpay/create-order', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + devSessionToken
+                            },
+                            body: JSON.stringify({ plan_tier: tier, currency: 'INR' })
+                        });
+                        const data = await resp.json();
+
+                        if (!data.success || !data.order_id) {
+                            alert('Order creation failed: ' + (data.error || 'Unknown error'));
+                            return;
+                        }
+
+                        // Open Razorpay Standard Checkout modal if script loaded
+                        if (window.Razorpay) {
+                            const rzpOptions = {
+                                key: data.key_id,
+                                amount: data.amount,
+                                currency: data.currency,
+                                name: "PhishGuardAI",
+                                description: data.plan_name + " Upgrade",
+                                order_id: data.order_id,
+                                prefill: {
+                                    email: data.user_email,
+                                    name: data.user_name
+                                },
+                                theme: {
+                                    color: "#38bdf8"
+                                },
+                                handler: async function (paymentResp) {
+                                    btn.textContent = 'Verifying...';
+                                    try {
+                                        const vResp = await fetch('/api/v1/billing/razorpay/verify-payment', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'Authorization': 'Bearer ' + devSessionToken
+                                            },
+                                            body: JSON.stringify({
+                                                plan_tier: tier,
+                                                razorpay_order_id: paymentResp.razorpay_order_id,
+                                                razorpay_payment_id: paymentResp.razorpay_payment_id,
+                                                razorpay_signature: paymentResp.razorpay_signature
+                                            })
+                                        });
+                                        const vData = await vResp.json();
+                                        if (vData.success) {
+                                            alert('🎉 Payment Verified! Upgraded to ' + data.plan_name + ' successfully.');
+                                            loadDeveloperData();
+                                        } else {
+                                            alert('Verification failed: ' + vData.error);
+                                        }
+                                    } catch (err) {
+                                        alert('Verification error: ' + err.message);
+                                    } finally {
+                                        btn.disabled = false;
+                                        btn.textContent = tier === 'business' ? '💼 Upgrade to Business (₹9,999/mo)' : '⚡ Upgrade to Pro (₹1,999/mo)';
+                                    }
+                                },
+                                modal: {
+                                    ondismiss: function() {
+                                        btn.disabled = false;
+                                        btn.textContent = tier === 'business' ? '💼 Upgrade to Business (₹9,999/mo)' : '⚡ Upgrade to Pro (₹1,999/mo)';
+                                    }
+                                }
+                            };
+                            const rzp = new window.Razorpay(rzpOptions);
+                            rzp.open();
+                        } else {
+                            // Offline or local simulated fallback
+                            if (confirm('Razorpay checkout modal requires network. Simulate instant activation for ' + data.plan_name + '?')) {
+                                const vResp = await fetch('/api/v1/billing/razorpay/verify-payment', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + devSessionToken
+                                    },
+                                    body: JSON.stringify({
+                                        plan_tier: tier,
+                                        razorpay_order_id: data.order_id,
+                                        razorpay_payment_id: 'pay_simulated_' + Date.now(),
+                                        razorpay_signature: 'sig_mock'
+                                    })
+                                });
+                                const vData = await vResp.json();
+                                if (vData.success) {
+                                    alert('🎉 Plan activated: ' + data.plan_name);
+                                    loadDeveloperData();
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        alert('Billing error: ' + err.message);
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = tier === 'business' ? '💼 Upgrade to Business (₹9,999/mo)' : '⚡ Upgrade to Pro (₹1,999/mo)';
+                    }
+                });
+            }
+        });
+
+        // Generate new API Key
+        if (btnCreateKey) {
+            btnCreateKey.addEventListener('click', async () => {
+                await ensureDevSession();
+                if (!devSessionToken) return;
+
+                btnCreateKey.disabled = true;
+                btnCreateKey.textContent = 'Generating...';
+
+                try {
+                    const resp = await fetch('/api/v1/keys', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + devSessionToken
+                        },
+                        body: JSON.stringify({ label: 'Production API Key ' + new Date().toLocaleTimeString(), is_live: true })
+                    });
+                    const data = await resp.json();
+
+                    if (data.success && data.api_key) {
+                        const banner = document.getElementById('new-key-banner');
+                        const rawDisplay = document.getElementById('raw-key-display');
+                        if (banner && rawDisplay) {
+                            rawDisplay.textContent = data.api_key.raw_key;
+                            banner.classList.remove('hidden');
+                        }
+                        loadDeveloperData();
+                    }
+                } catch (err) {
+                    console.error('Failed to create key:', err);
+                } finally {
+                    btnCreateKey.disabled = false;
+                    btnCreateKey.textContent = '+ Generate API Key';
+                }
+            });
+        }
+    }
+
+    /**
+     * Ensure developer session is active (register default test account if needed)
+     */
+    async function ensureDevSession() {
+        if (devSessionToken) return devSessionToken;
+
+        try {
+            // Attempt login or register demo account
+            let resp = await fetch('/api/v1/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: 'developer@phishguard.ai', password: 'PhishGuardSecurePassword2026!' })
+            });
+
+            if (resp.status === 401) {
+                // Register
+                resp = await fetch('/api/v1/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'developer@phishguard.ai',
+                        password: 'PhishGuardSecurePassword2026!',
+                        full_name: 'Lead Developer',
+                        plan_tier: 'free'
+                    })
+                });
+            }
+
+            const data = await resp.json();
+            if (data.success && data.session_token) {
+                devSessionToken = data.session_token;
+                localStorage.setItem('phishguard_dev_token', devSessionToken);
+            }
+        } catch (err) {
+            console.warn('Developer auto-session initialization failed:', err);
+        }
+        return devSessionToken;
+    }
+
+    /**
+     * Load developer API keys and usage statistics
+     */
+    async function loadDeveloperData() {
+        await ensureDevSession();
+        if (!devSessionToken) return;
+
+        // 1. Fetch keys
+        try {
+            const resp = await fetch('/api/v1/keys', {
+                headers: { 'Authorization': 'Bearer ' + devSessionToken }
+            });
+            const data = await resp.json();
+
+            if (data.success && Array.isArray(data.keys)) {
+                renderKeysTable(data.keys);
+            }
+        } catch (err) {
+            console.error('Failed to load keys:', err);
+        }
+
+        // 2. Fetch usage
+        try {
+            const resp = await fetch('/api/v1/user/usage', {
+                headers: { 'Authorization': 'Bearer ' + devSessionToken }
+            });
+            const data = await resp.json();
+
+            if (data.success && data.usage) {
+                const u = data.usage;
+                const countElem = document.getElementById('usage-count');
+                const quotaElem = document.getElementById('usage-quota');
+                const planBadge = document.getElementById('user-plan-badge');
+                const fillElem = document.getElementById('usage-progress-fill');
+
+                const used = u.scans_used_this_month || 0;
+
+                if (countElem) countElem.textContent = used;
+                if (quotaElem) quotaElem.textContent = "Unlimited";
+                if (planBadge) planBadge.textContent = 'FULL DEVELOPER ACCESS';
+                if (fillElem) {
+                    fillElem.style.width = '100%';
+                    fillElem.style.background = 'var(--green-primary)';
+                }
+            }
+        } catch (err) {
+            console.error('Failed to load usage:', err);
+        }
+    }
+
+    /**
+     * Render active API keys table rows
+     */
+    function renderKeysTable(keys) {
+        const tbody = document.getElementById('api-keys-tbody');
+        if (!tbody) return;
+
+        if (keys.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: var(--text-muted); padding: 1rem;">No API keys generated yet. Click "+ Generate API Key" above.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = '';
+        keys.forEach(k => {
+            const tr = document.createElement('tr');
+
+            const tdLabel = document.createElement('td');
+            tdLabel.textContent = k.label || 'API Key';
+
+            const tdPrefix = document.createElement('td');
+            const spanPrefix = document.createElement('span');
+            spanPrefix.className = 'key-mono';
+            spanPrefix.textContent = k.key_prefix + '...';
+            tdPrefix.appendChild(spanPrefix);
+
+            const tdTier = document.createElement('td');
+            const badgeTier = document.createElement('span');
+            badgeTier.className = k.is_live ? 'badge badge-accent' : 'badge badge-warning';
+            badgeTier.textContent = k.is_live ? 'Live' : 'Test';
+            tdTier.appendChild(badgeTier);
+
+            const tdCreated = document.createElement('td');
+            tdCreated.textContent = (k.created_at || '').substring(0, 10) || 'Active';
+
+            const tdAction = document.createElement('td');
+            if (k.revoked) {
+                const spanRev = document.createElement('span');
+                spanRev.style.color = 'var(--text-muted)';
+                spanRev.textContent = 'Revoked';
+                tdAction.appendChild(spanRev);
+            } else {
+                const btnRevoke = document.createElement('button');
+                btnRevoke.className = 'btn btn-danger btn-sm';
+                btnRevoke.textContent = 'Revoke';
+                btnRevoke.addEventListener('click', async () => {
+                    if (confirm('Are you sure you want to revoke this API key?')) {
+                        try {
+                            const delResp = await fetch('/api/v1/keys/' + k.id, {
+                                method: 'DELETE',
+                                headers: { 'Authorization': 'Bearer ' + devSessionToken }
+                            });
+                            const delData = await delResp.json();
+                            if (delData.success) {
+                                loadDeveloperData();
+                            }
+                        } catch (err) {
+                            alert('Failed to revoke key: ' + err.message);
+                        }
+                    }
+                });
+                tdAction.appendChild(btnRevoke);
+            }
+
+            tr.appendChild(tdLabel);
+            tr.appendChild(tdPrefix);
+            tr.appendChild(tdTier);
+            tr.appendChild(tdCreated);
+            tr.appendChild(tdAction);
+
+            tbody.appendChild(tr);
+        });
     }
 
     /**

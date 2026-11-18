@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PhishGuardAI Security</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body {
+      width: 340px;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 16px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+    .status-badge {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .status-safe { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+    .status-warn { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .status-danger { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+    .site-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .domain-title {
+      font-size: 14px;
+      font-weight: 600;
+      word-break: break-all;
+      margin-bottom: 8px;
+      color: #f1f5f9;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .metric-item {
+      background: #090d16;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #1e293b;
+    }
+    .metric-label { color: #94a3b8; font-size: 10px; text-transform: uppercase; margin-bottom: 2px; }
+    .metric-val { font-weight: 600; color: #f8fafc; }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: #0284c7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #0369a1; }
+    .btn:disabled { background: #475569; cursor: not-allowed; }
+
+    .settings-toggle {
+      font-size: 12px;
+      color: #38bdf8;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .settings-panel {
+      display: none;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .input-group { margin-bottom: 8px; }
+    .input-group label { display: block; margin-bottom: 4px; color: #94a3b8; font-size: 11px; }
+    .input-group input {
+      width: 100%;
+      padding: 6px 8px;
+      background: #090d16;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+    .btn-save {
+      background: #10b981;
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <span>🛡️</span> PhishGuardAI
+    </div>
+    <div class="status-badge" id="badgeStatus">ACTIVE</div>
+  </div>
+
+  <div class="site-card">
+    <div class="domain-title" id="tabDomain">Loading active tab...</div>
+    <div class="metrics">
+      <div class="metric-item">
+        <div class="metric-label">Phishing Risk</div>
+        <div class="metric-val" id="valRisk">—</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label">Domain Age</div>
+        <div class="metric-val" id="valAge">—</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label">SSL Certificate</div>
+        <div class="metric-val" id="valSSL">—</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-label">Status</div>
+        <div class="metric-val" id="valVerdict">—</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" id="btnScanNow">Scan Active Page Now</button>
+
+  <div class="settings-toggle" id="toggleSettings">⚙️ Configure API Key & Server</div>
+  <div class="settings-panel" id="settingsPanel">
+    <div class="input-group">
+      <label>PhishGuard API Key (Optional)</label>
+      <input type="password" id="inputApiKey" placeholder="pg_live_...">
+    </div>
+    <div class="input-group">
+      <label>Server Endpoint</label>
+      <input type="text" id="inputApiUrl" value="http://127.0.0.1:5000/api/v1/scan">
+    </div>
+    <button class="btn btn-save" id="btnSaveSettings">Save Configuration</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,278 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "PhishGuardAI Threat Intelligence & Phishing Detection API",
+    "version": "1.0.0",
+    "description": "Enterprise-grade multi-tier anti-phishing, typosquatting, credential harvesting, and threat intelligence API.\n\n### Authentication\n- **API Key**: Pass your key (`pg_live_...` or `pg_test_...`) in the `X-API-Key` HTTP header.\n- **Session Token**: For account and key management, pass your signed bearer token in `Authorization: Bearer <token>`.",
+    "contact": {
+      "name": "PhishGuardAI Developer Support",
+      "email": "support@phishguard.ai",
+      "url": "https://phishguard.ai"
+    },
+    "license": {
+      "name": "Commercial SaaS & MIT Client SDKs",
+      "url": "https://phishguard.ai/terms"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000",
+      "description": "Local Development / Self-Hosted Server"
+    },
+    {
+      "url": "https://api.phishguard.ai",
+      "description": "Production Cloud SaaS Cluster"
+    }
+  ],
+  "paths": {
+    "/api/v1/scan": {
+      "post": {
+        "summary": "Synchronous URL Threat Scan",
+        "description": "Inspects a URL through Tier 1 (Threat Feeds & Whitelist), Tier 2 (30-Feature ML & WHOIS Domain Age), and Tier 3 (DOM & Visual Brand Sandbox if inconclusive). Returns within milliseconds when cached.",
+        "security": [
+          { "ApiKeyAuth": [] }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["url"],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "example": "http://paypal-security-update.xyz"
+                  },
+                  "check_presence": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to perform live DNS and SSL reachability check."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Scan evaluation completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScanResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or unparseable URL submitted"
+          },
+          "401": {
+            "description": "Missing or invalid API key"
+          },
+          "429": {
+            "description": "Rate limit (RPM) or monthly quota exceeded"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "summary": "Register Developer Account",
+        "description": "Creates a new developer account and issues an initial production API key and signed session token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "format": "email", "example": "dev@company.com" },
+                  "password": { "type": "string", "format": "password", "example": "SuperSecretPass2026!" },
+                  "full_name": { "type": "string", "example": "Jane Doe" },
+                  "plan_tier": { "type": "string", "enum": ["free", "developer_pro", "business"], "default": "free" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Account created successfully" },
+          "400": { "description": "Email already registered or invalid fields" }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "Sign In Developer",
+        "description": "Authenticates with email and password to receive a signed session bearer token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "example": "dev@company.com" },
+                  "password": { "type": "string", "example": "SuperSecretPass2026!" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Authentication successful" },
+          "401": { "description": "Invalid credentials" }
+        }
+      }
+    },
+    "/api/v1/keys": {
+      "get": {
+        "summary": "List API Keys",
+        "description": "Returns all active and revoked API keys for the authenticated developer.",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "List of keys retrieved" }
+        }
+      },
+      "post": {
+        "summary": "Create API Key",
+        "description": "Generates a new cryptographic key (`pg_live_...` or `pg_test_...`). The raw key is returned only once.",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "label": { "type": "string", "example": "Production AWS Bot" },
+                  "is_live": { "type": "boolean", "default": true }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "API key generated" }
+        }
+      }
+    },
+    "/api/v1/keys/{key_id}": {
+      "delete": {
+        "summary": "Revoke API Key",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "key_id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Key successfully revoked" },
+          "404": { "description": "Key not found" }
+        }
+      }
+    },
+    "/api/v1/user/usage": {
+      "get": {
+        "summary": "Get Quota & Usage",
+        "description": "Returns current monthly scan consumption and active subscription tier limits.",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Usage retrieved" }
+        }
+      }
+    },
+    "/api/v1/billing/plans": {
+      "get": {
+        "summary": "List Subscription Plans",
+        "description": "Returns the complete pricing catalog and feature entitlements.",
+        "responses": {
+          "200": { "description": "Pricing catalog" }
+        }
+      }
+    },
+    "/api/v1/billing/checkout": {
+      "post": {
+        "summary": "Create Stripe Checkout Session",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["plan_tier"],
+                "properties": {
+                  "plan_tier": { "type": "string", "enum": ["developer_pro", "business", "enterprise"] },
+                  "success_url": { "type": "string" },
+                  "cancel_url": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Checkout session created" }
+        }
+      }
+    },
+    "/api/v1/billing/webhook": {
+      "post": {
+        "summary": "Stripe Webhook Receiver",
+        "description": "Receives asynchronous lifecycle events from Stripe.",
+        "responses": {
+          "200": { "description": "Webhook processed" },
+          "400": { "description": "Invalid signature or payload" }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "System Health Check",
+        "description": "Returns operational status of the ML model, database, and telemetry pipelines.",
+        "responses": {
+          "200": { "description": "System operational" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "PhishGuard cryptographic API key (e.g. `pg_live_...`)"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Signed session HMAC-SHA256 bearer token"
+      }
+    },
+    "schemas": {
+      "ScanResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "url": { "type": "string" },
+          "domain": { "type": "string" },
+          "verdict": { "type": "string", "enum": ["legitimate", "phishing", "suspicious", "inconclusive"] },
+          "standardized_verdict": { "type": "string" },
+          "risk_level": { "type": "string", "enum": ["low", "medium", "high", "critical", "unknown"] },
+          "phishing_probability": { "type": "number", "format": "float" },
+          "confidence_percent": { "type": "number", "format": "float" },
+          "latency_ms": { "type": "number" },
+          "cached": { "type": "boolean" },
+          "explanation": { "type": "array", "items": { "type": "string" } },
+          "warnings": { "type": "array", "items": { "type": "string" } },
+          "threat_intelligence": { "type": "object" },
+          "structural_indicators": { "type": "object" },
+          "scanned_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}
+

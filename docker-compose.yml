@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # PhishGuardAI SaaS Web & Threat Analysis API
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phishguard-api
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://phishguard:secure_password_2026@postgres:5432/phishguard_saas
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=pg_master_secret_key_change_in_cloud_prod_2026
+      - ENABLE_THREAT_INTEL=1
+      - ENABLE_WHITELIST=1
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - app-data:/app/data
+
+  # PostgreSQL 16 Multi-Tenant Relational Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: phishguard-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: phishguard_saas
+      POSTGRES_USER: phishguard
+      POSTGRES_PASSWORD: secure_password_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phishguard -d phishguard_saas"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis 7 In-Memory Cache & Fast Reputation Store
+  redis:
+    image: redis:7-alpine
+    container_name: phishguard-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  app-data:
+  pg-data:
+  redis-data:
+

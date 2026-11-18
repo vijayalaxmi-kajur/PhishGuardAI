@@ -13,6 +13,7 @@ from src.threat_intelligence.base import (
 )
 from src.threat_intelligence.phishtank import PhishTankProvider
 from src.threat_intelligence.urlhaus import URLhausProvider
+from src.threat_intelligence.openphish import OpenPhishProvider
 
 
 
@@ -32,6 +33,7 @@ class ThreatIntelligenceManager:
             self._providers = [
                 PhishTankProvider(),
                 URLhausProvider(),
+                OpenPhishProvider(),
             ]
 
     def get_configured_providers(self) -> List[str]:

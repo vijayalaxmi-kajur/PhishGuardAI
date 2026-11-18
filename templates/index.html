@@ -43,6 +43,34 @@
 
     <!-- Main Application Container -->
     <main class="dashboard-main">
+        <!-- Product & Feature Navigation Tabs -->
+        <nav class="main-nav-tabs" aria-label="Dashboard views">
+            <button type="button" class="tab-btn active" id="tab-btn-scanner" data-target="panel-scanner">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+                <span>Live URL Threat Scanner</span>
+            </button>
+            <button type="button" class="tab-btn" id="tab-btn-developer" data-target="panel-developer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6"/>
+                    <polyline points="8 6 2 12 8 18"/>
+                </svg>
+                <span>Developer API & Keys</span>
+            </button>
+            <button type="button" class="tab-btn" id="tab-btn-extension" data-target="panel-extension">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <span>Browser Protection</span>
+            </button>
+        </nav>
+
+        <!-- PANEL 1: Live URL Threat Scanner -->
+        <div id="panel-scanner" class="tab-panel">
         <!-- Overview & Summary Stats Section -->
         <section class="summary-section" aria-labelledby="summary-heading">
             <div class="section-header">
@@ -438,6 +466,178 @@
                 </div>
             </div>
         </section>
+        </div> <!-- End of panel-scanner -->
+
+        <!-- PANEL 2: Developer API & SaaS Portal -->
+        <div id="panel-developer" class="tab-panel hidden">
+            <section class="dev-section" aria-labelledby="dev-heading">
+                <div class="section-header">
+                    <div>
+                        <h2 id="dev-heading" class="section-title">Developer API & SaaS Management</h2>
+                        <p class="section-description">
+                            Generate production API keys, monitor monthly quotas, and integrate zero-day phishing detection into your apps.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="dev-portal-grid">
+                    <!-- Left: API Keys & Quota -->
+                    <div class="key-list-card">
+                        <div class="key-actions-row">
+                            <div>
+                                <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 4px;">API Keys</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Cryptographic keys for <code>/api/v1/scan</code> authentication.</p>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm" id="btn-create-key">
+                                + Generate API Key
+                            </button>
+                        </div>
+
+                        <!-- Generated Key Alert Banner -->
+                        <div id="new-key-banner" class="alert-banner alert-success hidden" style="margin-bottom: 1rem; padding: 12px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--green-primary); border-radius: 8px;">
+                            <div style="font-size: 0.85rem; color: #a7f3d0; margin-bottom: 6px;">
+                                <strong>Success! Key Generated.</strong> Copy it now; it won't be shown again:
+                            </div>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <code id="raw-key-display" style="background: #040814; padding: 6px 10px; border-radius: 4px; font-family: var(--font-mono); color: var(--cyan-primary); flex-grow: 1; word-break: break-all;"></code>
+                                <button type="button" class="btn-copy" id="btn-copy-raw-key">Copy</button>
+                            </div>
+                        </div>
+
+                        <!-- Table of Keys -->
+                        <table class="api-keys-table">
+                            <thead>
+                                <tr>
+                                    <th>Label</th>
+                                    <th>Prefix</th>
+                                    <th>Tier</th>
+                                    <th>Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="api-keys-tbody">
+                                <tr>
+                                    <td>Default Production Key</td>
+                                    <td><span class="key-mono">pg_live_...</span></td>
+                                    <td><span class="badge badge-accent">Live</span></td>
+                                    <td>Active</td>
+                                    <td><button class="btn btn-secondary btn-sm" disabled>Active</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Access & Usage Summary -->
+                        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px;">
+                                <span style="color: var(--text-muted);">Access Level: <strong id="user-plan-badge" style="color: var(--cyan-primary);">Full Developer Access</strong></span>
+                                <span style="color: var(--text-secondary);"><strong id="usage-count">0</strong> scans recorded</span>
+                            </div>
+                            <div class="meter-track" style="height: 8px; margin-bottom: 8px;">
+                                <div class="meter-fill" id="usage-progress-fill" style="width: 100%; background: var(--green-primary);"></div>
+                            </div>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Status: All detection tiers, APIs, and client SDKs are fully unlocked and active.</span>
+
+                            <!-- Developer Quick Links -->
+                            <div style="margin-top: 1rem; display: flex; gap: 8px; flex-wrap: wrap;">
+                                <a href="/docs" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                                    <span>Interactive API Docs (/docs)</span>
+                                </a>
+                                <a href="/api/health" target="_blank" class="btn btn-secondary btn-sm" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                                    <span>API Health Status</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: SDK Quickstart & Code Generator -->
+                    <div class="sdk-code-card">
+                        <div class="code-box-header">
+                            <div>
+                                <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 4px;">Integration Quickstart</h3>
+                                <p style="font-size: 0.85rem; color: var(--text-muted);">Copy-paste code ready for production.</p>
+                            </div>
+                            <button type="button" class="btn-copy" id="btn-copy-snippet">Copy Code</button>
+                        </div>
+
+                        <div class="code-tabs">
+                            <button type="button" class="code-tab-btn active" data-lang="python">Python SDK</button>
+                            <button type="button" class="code-tab-btn" data-lang="node">Node.js SDK</button>
+                            <button type="button" class="code-tab-btn" data-lang="curl">cURL API</button>
+                        </div>
+
+                        <pre class="code-pre" id="code-snippet-box"><code># Python SDK Quickstart
+from phishguard import PhishGuardClient
+
+client = PhishGuardClient(
+    api_key="pg_live_xxxxxxxxxxxxxxxx",
+    base_url="http://127.0.0.1:5000"
+)
+
+# Deep scan a suspicious link
+result = client.scan("http://chase-bank-verify.xyz")
+print("Verdict:", result["verdict"])
+print("Risk Score:", result["phishing_probability"])
+print("Explanation:", result["explanation"])</code></pre>
+                    </div>
+                </div>
+            </section>
+        </div> <!-- End of panel-developer -->
+
+        <!-- PANEL 3: Browser Extension -->
+        <div id="panel-extension" class="tab-panel hidden">
+            <section class="extension-section" aria-labelledby="ext-heading">
+                <div class="section-header">
+                    <div>
+                        <h2 id="ext-heading" class="section-title">PhishGuardAI Browser Security Extension</h2>
+                        <p class="section-description">
+                            Zero-delay client protection shielding users against zero-day phishing, typosquatting, and credential harvesting in Chrome, Edge, and Brave.
+                        </p>
+                    </div>
+                    <span class="badge badge-accent" style="padding: 6px 12px; font-size: 0.85rem;">Manifest V3 Compatible</span>
+                </div>
+
+                <div class="extension-grid">
+                    <div class="ext-feature-card">
+                        <div class="ext-feature-icon">⚡</div>
+                        <h3 class="ext-feature-title">Real-Time Navigation Interception</h3>
+                        <p class="ext-feature-desc">
+                            Listens on <code>webNavigation.onBeforeNavigate</code>, checking outgoing link reputation before dangerous HTML, scripts, or credential stealers can download.
+                        </p>
+                    </div>
+
+                    <div class="ext-feature-card">
+                        <div class="ext-feature-icon">🛑</div>
+                        <h3 class="ext-feature-title">Red Interstitial Security Screen</h3>
+                        <p class="ext-feature-desc">
+                            Instantly intercepts confirmed phishing URLs and redirects the tab to an isolated security warning screen with WHOIS domain age and detection evidence.
+                        </p>
+                    </div>
+
+                    <div class="ext-feature-card">
+                        <div class="ext-feature-icon">🛡️</div>
+                        <h3 class="ext-feature-title">Sub-Millisecond Cache</h3>
+                        <p class="ext-feature-desc">
+                            Stores verified domain reputations locally in Chrome storage for 1 hour, providing instantaneous browsing with zero network overhead on repeated visits.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="install-guide-box">
+                    <h3 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 0.5rem;">How to Install in Your Browser (Developer Mode)</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">
+                        The PhishGuardAI browser extension is packaged in the <code>extension/</code> folder of this project:
+                    </p>
+                    <ol class="install-steps-list">
+                        <li>Open your browser and navigate to <code>chrome://extensions</code> (or <code>edge://extensions</code>).</li>
+                        <li>Toggle <strong>Developer mode</strong> in the top-right corner.</li>
+                        <li>Click <strong>Load unpacked</strong>.</li>
+                        <li>Select the folder: <code>c:\Users\yalla\OneDrive\Desktop\PhishGuardAI\extension</code>.</li>
+                        <li>The PhishGuardAI shield will appear in your toolbar, actively protecting every navigation!</li>
+                    </ol>
+                </div>
+            </section>
+        </div> <!-- End of panel-extension -->
     </main>
 
     <!-- Confirmation Modal for Clearing History -->
@@ -470,13 +670,17 @@
     <footer class="app-footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <p><strong>PhishGuardAI</strong> &bull; Intelligent Phishing URL Detection System</p>
-                <p class="footer-note">Final-Year Engineering Major Project &bull; Passive Machine Learning Analysis Engine</p>
+                <p><strong>PhishGuardAI</strong> &bull; Enterprise Phishing Detection & Threat Intelligence Platform</p>
+                <p class="footer-note">Multi-Tier Zero-Day Defense Engine &bull; Real-Time WHOIS & DOM Sandbox Telemetry</p>
             </div>
             <div class="footer-links">
-                <a href="/api/health" class="footer-link" target="_blank" rel="noopener">Health Endpoint</a>
+                <a href="/docs" class="footer-link" target="_blank" rel="noopener">API Docs (/docs)</a>
                 <span class="footer-sep">&bull;</span>
-                <a href="/api/history" class="footer-link" target="_blank" rel="noopener">Scan History API</a>
+                <a href="/terms" class="footer-link" target="_blank" rel="noopener">Terms of Service</a>
+                <span class="footer-sep">&bull;</span>
+                <a href="/privacy" class="footer-link" target="_blank" rel="noopener">Privacy Policy</a>
+                <span class="footer-sep">&bull;</span>
+                <a href="/api/health" class="footer-link" target="_blank" rel="noopener">System Health</a>
             </div>
         </div>
     </footer>

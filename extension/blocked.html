@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Security Alert: Malicious Site Blocked — PhishGuardAI</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --border: #334155;
+      --btn-safe: #10b981;
+      --btn-safe-hover: #059669;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      padding: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    .icon {
+      width: 72px;
+      height: 72px;
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 12px; color: var(--danger); }
+    p.lead { font-size: 16px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+    .url-box {
+      background: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: monospace;
+      font-size: 14px;
+      word-break: break-all;
+      color: #cbd5e1;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+      margin-bottom: 16px;
+    }
+    .reason-box {
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 4px solid var(--danger);
+      padding: 14px 16px;
+      border-radius: 0 8px 8px 0;
+      text-align: left;
+      font-size: 14px;
+      color: #fca5a5;
+      margin-bottom: 32px;
+      line-height: 1.4;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: background 0.2s;
+    }
+    .btn-safe {
+      background-color: var(--btn-safe);
+      color: white;
+    }
+    .btn-safe:hover { background-color: var(--btn-safe-hover); }
+    .btn-bypass {
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+      text-decoration: underline;
+    }
+    .btn-bypass:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">✕</div>
+    <div class="badge" id="riskBadge">CRITICAL THREAT BLOCKED</div>
+    <h1>Deceptive Site Blocked</h1>
+    <p class="lead">
+      <strong>PhishGuardAI</strong> has blocked navigation to this website because it exhibits signatures of credential theft, brand impersonation, or malicious delivery.
+    </p>
+
+    <div class="url-box" id="targetUrl">Loading...</div>
+    <div class="reason-box" id="reasonText">Verified phishing attack detected.</div>
+
+    <div class="actions">
+      <button class="btn btn-safe" id="btnBack">Back to Safety (Recommended)</button>
+      <button class="btn-bypass" id="btnBypass">I understand the risks, proceed anyway (unsafe)</button>
+    </div>
+  </div>
+  <script src="blocked.js"></script>
+</body>
+</html>
+

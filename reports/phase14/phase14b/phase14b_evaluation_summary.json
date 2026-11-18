@@ -4,7 +4,7 @@
   "sample_count": 963,
   "phishing_count": 800,
   "legitimate_count": 163,
-  "evaluation_timestamp": "2026-10-30T07:39:32Z",
+  "evaluation_timestamp": "2026-11-17T11:01:58Z",
   "candidate_04": {
     "model_name": "cand04_rf_regularized_30f",
     "overall_metrics": {
@@ -41,7 +41,7 @@
       "fnr": 0.0,
       "roc_auc": 0.9275,
       "pr_auc": 0.9797150437353687,
-      "brier_score": 0.07438466949865345
+      "brier_score": 0.07438466949865344
     },
     "slices": {
       "protocol_https": {
@@ -438,7 +438,7 @@
         "fnr": 0.0,
         "roc_auc": null,
         "pr_auc": null,
-        "brier_score": 0.006622642414505701
+        "brier_score": 0.006622642414505702
       },
       "cat_legit_documentation_deep_path": {
         "total": 79,
@@ -474,7 +474,7 @@
         "fnr": 0.0,
         "roc_auc": null,
         "pr_auc": null,
-        "brier_score": 0.30043485824863225
+        "brier_score": 0.3004348582486323
       },
       "cat_legit_academic_search_query": {
         "total": 43,
@@ -546,7 +546,7 @@
         "fnr": 0.0,
         "roc_auc": null,
         "pr_auc": null,
-        "brier_score": 0.43564430386839403
+        "brier_score": 0.4356443038683941
       },
       "cat_legit_community_technical_qa": {
         "total": 16,
@@ -582,7 +582,7 @@
         "fnr": 0.0,
         "roc_auc": null,
         "pr_auc": null,
-        "brier_score": 0.36457559003850337
+        "brier_score": 0.3645755900385033
       },
       "cat_legit_institutional_http": {
         "total": 10,

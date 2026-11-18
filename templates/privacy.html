@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — PhishGuardAI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .legal-container {
+      max-width: 860px;
+      margin: 3rem auto;
+      padding: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+    .legal-container h1 { color: var(--text-primary); margin-bottom: 0.5rem; }
+    .legal-container h2 { color: var(--cyan-primary); margin-top: 2rem; margin-bottom: 0.5rem; font-size: 1.25rem; }
+    .legal-container p { margin-bottom: 1rem; font-size: 0.95rem; }
+    .legal-container ul { margin-bottom: 1rem; padding-left: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="legal-container">
+    <a href="/" style="color: var(--cyan-primary); text-decoration: none; font-size: 0.9rem;">← Back to Dashboard</a>
+    <h1 style="margin-top: 1rem;">PhishGuardAI Privacy Policy</h1>
+    <p><em>Last updated: November 17, 2026</em></p>
+
+    <p>PhishGuardAI is committed to protecting developer and end-user privacy while maintaining a robust, collaborative global threat intelligence network.</p>
+
+    <h2>1. Information We Collect</h2>
+    <ul>
+      <li><strong>Account Credentials:</strong> Developer email addresses, full names, and PBKDF2-HMAC-SHA256 salted password hashes. We never store plain-text passwords.</li>
+      <li><strong>Submitted URLs:</strong> URLs submitted for inspection via the web dashboard, browser extension, or REST API.</li>
+      <li><strong>Operational Telemetry:</strong> Request timestamps, response latencies, HTTP status codes, and anonymized user agents for rate limiting and service optimization.</li>
+    </ul>
+
+    <h2>2. URL Scrubbing & Personal Data Protection</h2>
+    <p>We respect that URLs may occasionally contain sensitive query parameters (such as temporary reset tokens or user IDs). Before persistent logging or threat-feed sharing:</p>
+    <ul>
+      <li>Sensitive query parameters (e.g. <code>password</code>, <code>token</code>, <code>auth</code>, <code>key</code>) are masked or stripped from telemetry databases.</li>
+      <li>Browser extension traffic operates with a local 1-hour cache to avoid re-transmitting frequently visited domains over the network.</li>
+      <li>We do not collect browsing history or track user activity across clean, unflagged websites.</li>
+    </ul>
+
+    <h2>3. Threat Intelligence Sharing</h2>
+    <p>To protect the wider cybersecurity ecosystem, anonymized malicious domain indicators (specifically verified zero-day phishing hashes and destination URLs) may be shared with trusted threat-intelligence communities including Abuse.ch URLhaus, PhishTank, and OpenPhish.</p>
+
+    <h2>4. Data Security</h2>
+    <p>All data in transit is protected using TLS 1.3 encryption. API keys are indexed and stored using one-way SHA-256 cryptographic hashes; raw keys are never stored on our database servers and cannot be recovered if lost.</p>
+
+    <h2>5. GDPR & CCPA Rights</h2>
+    <p>You have the right to request access to your account data, demand permanent account deletion, and export your historical scan logs. To exercise these rights, contact our Data Protection Officer at <a href="mailto:privacy@phishguard.ai" style="color: var(--cyan-primary);">privacy@phishguard.ai</a>.</p>
+  </div>
+</body>
+</html>
+
